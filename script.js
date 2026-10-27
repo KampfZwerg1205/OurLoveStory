@@ -50,6 +50,25 @@ const backgroundMusic = document.getElementById("backgroundMusic");
 const musicButton = document.getElementById("musicButton");
 const musicLabel = document.getElementById("musicLabel");
 const musicIcon = document.getElementById("musicIcon");
+const musicVolume = document.getElementById("musicVolume");
+const musicVolumeValue = document.getElementById("musicVolumeValue");
+
+if (backgroundMusic) {
+  backgroundMusic.volume = 0.5;
+}
+
+function updateMusicVolume() {
+  if (!backgroundMusic || !musicVolume) return;
+
+  const volume = Number(musicVolume.value);
+  backgroundMusic.volume = volume / 100;
+
+  if (musicVolumeValue) {
+    musicVolumeValue.textContent = `${volume}%`;
+  }
+
+  musicVolume.setAttribute("aria-valuetext", `${volume}% Lautstärke`);
+}
 
 const secretLetterModal = document.getElementById("secretLetterModal");
 const openSecretLetterButton = document.getElementById("openSecretLetter");
@@ -313,8 +332,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Startbildschirm
   enterButton?.addEventListener("click", openLoveStory);
 
-  // Musik
+  // Musik und Lautstärke
   musicButton?.addEventListener("click", toggleMusic);
+  musicVolume?.addEventListener("input", updateMusicVolume);
+  updateMusicVolume();
 
   // Nur das Brief-Emoji im Footer öffnet den geheimen Brief.
   openSecretLetterButton?.addEventListener(
