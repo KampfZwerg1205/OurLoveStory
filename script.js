@@ -68,7 +68,17 @@ const musicPlaylist = [
     title: "Unser Lied",
     artist: "Für uns",
     src: "assets/music.mp3"
-  }
+  },
+   {
+    title: "Thats so True",
+    artist: "Gracie Abrams",
+    src: "assets/music/That´s So True.mp3"
+  },
+   {
+    title: "Ghost",
+    artist: "Nightcore Zodiac",
+    src: "assets/music/song-2.mp3"
+  },
   // Beispiel für weitere Songs:
   // ,{ title: "Unser Moment", artist: "Künstlername", src: "assets/music/song-2.mp3" }
 ];
