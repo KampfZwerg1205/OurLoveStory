@@ -380,6 +380,56 @@ button {
   color: #ffc8ef;
 }
 
+/* Lautstärkeregler für die Hintergrundmusik */
+.music-volume-control {
+  position: fixed;
+  right: 18px;
+  bottom: 72px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(250px, calc(100vw - 36px));
+  padding: 11px 14px;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 16px;
+  color: #fff8ff;
+  background: rgba(43,27,67,.92);
+  box-shadow: 0 7px 24px rgba(0,0,0,.2);
+  backdrop-filter: blur(12px);
+  font-size: .88rem;
+}
+
+.music-volume-control label {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+#musicVolumeValue {
+  color: #ffc8ef;
+  font-variant-numeric: tabular-nums;
+}
+
+#musicVolume {
+  width: 100%;
+  min-width: 0;
+  accent-color: #f0b1df;
+  cursor: pointer;
+}
+
+#musicVolume:focus-visible {
+  outline: 2px solid #ffc8ef;
+  outline-offset: 4px;
+}
+
+@media (max-width: 480px) {
+  .music-volume-control {
+    right: 12px;
+    bottom: 70px;
+    width: min(230px, calc(100vw - 24px));
+  }
+}
+
 /* =========================================
    HERO-BEREICH
 ========================================= */
