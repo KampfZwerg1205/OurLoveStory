@@ -78,7 +78,7 @@ const musicPlaylist = [
     title: "Ghost",
     artist: "Nightcore Zodiac",
     src: "assets/music/song-2.mp3"
-  },
+  }
   // Beispiel für weitere Songs:
   // ,{ title: "Unser Moment", artist: "Künstlername", src: "assets/music/song-2.mp3" }
 ];
