@@ -1,598 +1,341 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080b18">
-  <title>Unser Mond — unsere Geschichte</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-:root {
-  --bg: #060812;
-  --bg2: #0b1020;
-  --text: #f4f0f5;
-  --muted: #aaa9b7;
-  --line: rgba(255,255,255,.12);
-  --accent: #dba4c6;
-  --accent2: #9da9e8;
-  --card: rgba(255,255,255,.045);
-  --serif: "Cormorant Garamond", Georgia, serif;
-  --sans: "Inter", Arial, sans-serif;
-}
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0; color: var(--text); background:
-  radial-gradient(circle at 50% 10%, rgba(104,113,188,.15), transparent 28rem),
-  linear-gradient(180deg, var(--bg), var(--bg2) 45%, #070914);
-  font-family: var(--sans); overflow-x: hidden;
-}
-body::before {
-  content:""; position:fixed; inset:0; pointer-events:none; z-index:-2;
-  background-image: radial-gradient(circle, rgba(255,255,255,.75) 0 1px, transparent 1.5px);
-  background-size: 150px 150px; opacity:.12;
-}
-.stars {
-  position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.7;
-  background-image:
-    radial-gradient(circle at 20% 30%, white 0 1px, transparent 1.5px),
-    radial-gradient(circle at 70% 15%, white 0 1px, transparent 1.5px),
-    radial-gradient(circle at 85% 75%, white 0 1px, transparent 1.5px),
-    radial-gradient(circle at 35% 80%, white 0 1px, transparent 1.5px);
-  background-size: 310px 260px, 420px 360px, 500px 420px, 600px 520px;
-  animation: drift 35s linear infinite;
-}
-@keyframes drift { to { transform: translate3d(-20px,25px,0); } }
-.moon-glow {
-  position:fixed; width:45vw; height:45vw; max-width:650px; max-height:650px;
-  border-radius:50%; left:50%; top:12%; transform:translate(-50%,-50%);
-  background:radial-gradient(circle, rgba(175,188,255,.09), transparent 68%);
-  pointer-events:none; z-index:-1;
-}
-.topbar {
-  position:fixed; top:0; left:0; right:0; z-index:10;
-  display:flex; justify-content:space-between; align-items:center;
-  padding:24px 5vw; background:linear-gradient(180deg, rgba(6,8,18,.82), transparent);
-  backdrop-filter: blur(8px);
-}
-.brand { font-size:11px; letter-spacing:.32em; font-weight:600; }
-.brand span { color:var(--accent); margin-left:5px; }
-.icon-btn {
-  width:40px;height:40px;border-radius:50%; border:1px solid var(--line);
-  color:var(--text);background:rgba(255,255,255,.04);cursor:pointer;font-size:17px;
-}
-section { position:relative; }
-.hero {
-  min-height:100vh; display:flex; flex-direction:column; align-items:center;
-  justify-content:center; text-align:center; padding:100px 20px 70px;
-}
-.hero-moon, .final-moon { width:180px;height:180px; position:relative; margin-bottom:55px; }
-.moon {
-  width:100%;height:100%;border-radius:50%;
-  background:
-    radial-gradient(circle at 35% 28%, rgba(255,255,255,.95), rgba(214,218,238,.96) 43%, rgba(133,143,177,.9) 72%, rgba(62,68,97,.98));
-  box-shadow: 0 0 35px rgba(202,211,255,.32), 0 0 110px rgba(135,147,235,.12);
-  animation: moonPulse 5s ease-in-out infinite;
-}
-.moon::after {
-  content:""; position:absolute; inset:8%; border-radius:50%; opacity:.28;
-  background:
-    radial-gradient(circle at 25% 35%, #777 0 4%, transparent 5%),
-    radial-gradient(circle at 70% 28%, #777 0 5%, transparent 6%),
-    radial-gradient(circle at 62% 68%, #777 0 7%, transparent 8%),
-    radial-gradient(circle at 30% 72%, #777 0 3%, transparent 4%);
-}
-@keyframes moonPulse { 50% { transform:scale(1.035); box-shadow:0 0 48px rgba(202,211,255,.4),0 0 130px rgba(135,147,235,.16); } }
-.eyebrow, .section-label {
-  text-transform:uppercase; letter-spacing:.24em; font-size:10px; color:var(--muted);
-}
-.hero h1, h2, h3 { font-family:var(--serif); font-weight:500; }
-.hero h1 { font-size:clamp(65px,12vw,145px); line-height:.72; margin:0 0 35px; letter-spacing:-.05em; }
-em { color:var(--accent); font-style:italic; }
-.hero-text { color:var(--muted); line-height:1.8; font-size:14px; }
-.scroll-btn {
-  margin-top:40px; padding:13px 20px; border:1px solid var(--line); border-radius:30px;
-  background:rgba(255,255,255,.04); color:var(--text); cursor:pointer; font-size:11px;
-}
-.scroll-btn span { margin-left:12px; color:var(--accent); }
-.section { max-width:1100px; margin:auto; padding:140px 5vw; }
-.intro-grid { display:grid; grid-template-columns:1fr 1fr; gap:10vw; margin-top:35px; }
-h2 { font-size:clamp(48px,7vw,85px); line-height:.9; letter-spacing:-.04em; margin:15px 0 50px; }
-.prose { color:var(--muted); font-size:15px; line-height:1.9; padding-top:10px; }
-.prose strong { color:var(--text); font-weight:500; }
-.timeline h2 { margin-bottom:80px; }
-.timeline-list { position:relative; max-width:820px; margin:auto; }
-.timeline-list::before {
-  content:""; position:absolute; left:50%; top:0; bottom:0; width:1px; background:linear-gradient(transparent,var(--line) 5%,var(--line) 95%,transparent);
-}
-.timeline-item { display:grid; grid-template-columns:1fr 60px 1fr; min-height:240px; position:relative; }
-.timeline-item .date { grid-column:1; text-align:right; padding:25px 35px 0 0; color:var(--muted); font-size:11px; letter-spacing:.12em; }
-.timeline-item .dot { grid-column:2; width:11px;height:11px;border:1px solid var(--accent); border-radius:50%; margin:29px auto 0; background:var(--bg); box-shadow:0 0 15px rgba(219,164,198,.25); z-index:1; }
-.timeline-item .card { grid-column:3; padding:18px 0 50px 35px; }
-.timeline-item:nth-child(even) .date { grid-column:3; grid-row:1; text-align:left; padding-left:35px; padding-right:0; }
-.timeline-item:nth-child(even) .card { grid-column:1; grid-row:1; text-align:right; padding-left:0; padding-right:35px; }
-.chapter { font-size:9px; letter-spacing:.2em; color:var(--accent); text-transform:uppercase; }
-.card h3 { font-size:38px; margin:8px 0 12px; }
-.card p { color:var(--muted); font-size:13px; line-height:1.75; margin:7px 0; }
-.card.featured { background:linear-gradient(135deg,rgba(219,164,198,.08),rgba(157,169,232,.05)); border:1px solid rgba(219,164,198,.18); padding:28px 30px 32px; border-radius:4px; }
-.card.featured h3 { color:#fff; }
-.highlight { color:var(--accent)!important; font-family:var(--serif); font-size:22px!important; }
-.moon-symbol { font-size:70px; text-align:center; color:#dce1ff; text-shadow:0 0 25px rgba(200,210,255,.35); margin:5px 0; }
-.ring { font-size:55px; text-align:center; margin:15px 0; }
-.divider { width:60px; height:1px; background:var(--accent); margin:25px 0; }
-.big-line { color:var(--text)!important; font-family:var(--serif); font-size:28px!important; }
-.letter { max-width:950px; }
-.letter-wrap {
-  margin-top:50px; padding:clamp(35px,7vw,80px);
-  background:linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.025));
-  border:1px solid var(--line); box-shadow:0 30px 100px rgba(0,0,0,.25);
-}
-.letter-top { color:var(--accent); text-transform:uppercase; letter-spacing:.2em; font-size:9px; }
-.letter-wrap h2 { font-size:clamp(48px,6vw,78px); margin:25px 0 50px; }
-.letter-text { font-family:var(--serif); font-size:clamp(19px,2.2vw,24px); line-height:1.55; color:#d7d3da; }
-.letter-text p { margin:0 0 24px; }
-.letter-text .signature { color:#fff; margin-top:50px; font-size:30px; }
-.signature span { color:var(--accent); font-size:20px; }
-.memories h2 { margin-bottom:15px; }
-.section-subtitle { color:var(--muted); font-size:12px; margin-bottom:45px; }
-code { color:var(--accent); }
-.gallery { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
-
-.story-photo {
-  width: 100%;
-  max-height: 420px;
-  object-fit: cover;
-  display: block;
-  margin-top: 22px;
-  border: 1px solid rgba(255,255,255,.14);
-  box-shadow: 0 18px 55px rgba(0,0,0,.28);
-  cursor: zoom-in;
-  transition: transform .45s ease, filter .45s ease, box-shadow .45s ease;
-}
-.story-photo:hover {
-  transform: scale(1.015);
-  filter: brightness(1.06);
-  box-shadow: 0 24px 70px rgba(0,0,0,.38);
-}
-.photo-gallery-card {
-  position: relative;
-  overflow: hidden;
-  min-height: 340px;
-  border: 1px solid var(--line);
-  background: #0b0e19;
-  cursor: zoom-in;
-}
-.photo-gallery-card img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .7s ease, filter .7s ease;
-}
-.photo-gallery-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 35%, rgba(4,6,14,.88) 100%);
-  pointer-events: none;
-}
-.photo-gallery-card:hover img {
-  transform: scale(1.045);
-  filter: brightness(1.06);
-}
-.photo-gallery-card .photo-caption {
-  position: absolute;
-  left: 22px;
-  right: 22px;
-  bottom: 20px;
-  z-index: 1;
-}
-.photo-gallery-card .photo-caption b {
-  display: block;
-  font-family: var(--serif);
-  font-size: 28px;
-  font-weight: 500;
-}
-.photo-gallery-card .photo-caption small {
-  display: block;
-  color: #c1bfca;
-  font-size: 10px;
-  margin-top: 4px;
-}
-.lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 28px;
-  background: rgba(3,4,10,.9);
-  backdrop-filter: blur(12px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .25s ease;
-}
-.lightbox.open {
-  opacity: 1;
-  pointer-events: auto;
-}
-.lightbox img {
-  max-width: min(1100px, 94vw);
-  max-height: 88vh;
-  object-fit: contain;
-  border: 1px solid rgba(255,255,255,.18);
-  box-shadow: 0 30px 100px rgba(0,0,0,.6);
-}
-.lightbox-close {
-  position: absolute;
-  top: 20px;
-  right: 24px;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.06);
-  color: white;
-  font-size: 22px;
-  cursor: pointer;
-}
-@media (max-width:700px) {
-  .story-photo { max-height: 360px; }
-  .photo-gallery-card { min-height: 280px; }
-}
-
-.photo-placeholder {
-  min-height:220px; padding:22px; display:flex; flex-direction:column; justify-content:flex-end;
-  border:1px solid var(--line); background:
-  linear-gradient(145deg,rgba(219,164,198,.08),rgba(100,110,170,.06)),
-  repeating-linear-gradient(135deg,transparent 0 12px,rgba(255,255,255,.018) 12px 13px);
-}
-.photo-placeholder.tall { min-height:300px; }
-.photo-placeholder.wide { grid-column:span 2; }
-.photo-placeholder span { color:var(--accent); font-size:9px; letter-spacing:.2em; margin-bottom:auto; }
-.photo-placeholder b { font-family:var(--serif); font-size:25px; font-weight:500; }
-.photo-placeholder small { color:var(--muted); font-size:10px; margin-top:4px; }
-.final { min-height:100vh; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center; }
-.final-moon { margin-bottom:55px; }
-.final h2 { margin-bottom:30px; }
-.final p { color:var(--muted); line-height:1.8; font-size:14px; margin:3px 0; }
-.final-heart { color:var(--accent); font-size:42px; margin:35px 0 12px; animation:heart 1.8s ease-in-out infinite; }
-@keyframes heart { 50% { transform:scale(1.13); text-shadow:0 0 30px rgba(219,164,198,.45); } }
-.forever { font-family:var(--serif); color:var(--text)!important; font-size:25px!important; }
-footer { padding:35px 5vw; display:flex; justify-content:space-between; border-top:1px solid var(--line); color:#737381; font-size:9px; letter-spacing:.16em; text-transform:uppercase; }
-.reveal { opacity:0; transform:translateY(25px); transition:opacity .8s ease,transform .8s ease; }
-.reveal.visible { opacity:1; transform:none; }
-@media (max-width:700px) {
-  .topbar { padding:18px 6vw; }
-  .hero { min-height:92vh; }
-  .hero-moon { width:130px;height:130px; margin-bottom:40px; }
-  .section { padding:95px 6vw; }
-  .intro-grid { grid-template-columns:1fr; gap:15px; }
-  .prose { padding-top:0; }
-  .timeline-list::before { left:7px; }
-  .timeline-item, .timeline-item:nth-child(even) { display:grid; grid-template-columns:25px 1fr; min-height:0; }
-  .timeline-item .dot, .timeline-item:nth-child(even) .dot { grid-column:1; grid-row:1; margin:29px 0 0 2px; }
-  .timeline-item .date, .timeline-item:nth-child(even) .date { grid-column:2; grid-row:1; text-align:left; padding:22px 0 0 20px; }
-  .timeline-item .card, .timeline-item:nth-child(even) .card { grid-column:2; grid-row:2; text-align:left; padding:15px 0 55px 20px; }
-  .timeline-item .card.featured { padding:25px 22px 28px; }
-  .card h3 { font-size:33px; }
-  .gallery { grid-template-columns:1fr 1fr; }
-  .photo-placeholder, .photo-placeholder.tall { min-height:190px; }
-  .photo-placeholder.wide { grid-column:span 2; }
-  footer { flex-direction:column; gap:10px; }
-}
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#100b27">
+  <title>Our Love Story ♡</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="stars" aria-hidden="true"></div>
-  <div class="moon-glow" aria-hidden="true"></div>
 
-  <header class="topbar">
-    <div class="brand">UNSER MOND <span>♥</span></div>
-    <button id="musicToggle" class="icon-btn" aria-label="Musik ein oder ausschalten">♫</button>
-  </header>
+  <!-- STARTBILDSCHIRM -->
+  <section id="introScreen" class="intro-screen" aria-label="Unsere Liebesgeschichte">
+    <div id="starField" class="star-field" aria-hidden="true"></div>
+    <div class="nebula nebula-one" aria-hidden="true"></div>
+    <div class="nebula nebula-two" aria-hidden="true"></div>
 
-  <main>
-    <section class="hero">
-      <div class="hero-moon">
-        <div class="moon"></div>
+    <div class="intro-content">
+      <p class="intro-small">FÜR IMMER BEGINNT MIT DIR</p>
+
+      <div class="couple-wrap" aria-hidden="true">
+        <svg class="couple-art" viewBox="0 0 360 330" role="img" aria-label="Zwei Menschen, die sich liebevoll ansehen">
+          <defs>
+            <linearGradient id="lineGlow" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ffd9f4"/>
+              <stop offset="50%" stop-color="#f5a7e7"/>
+              <stop offset="100%" stop-color="#bba7ff"/>
+            </linearGradient>
+            <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="3.5" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <g class="drawing-lines" fill="none" stroke="url(#lineGlow)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)">
+            <path class="draw p1" d="M119 121 C107 99 115 67 142 58 C164 50 187 65 190 89 C193 106 185 119 180 127"/>
+            <path class="draw p2" d="M119 94 C130 79 146 78 158 84 C170 89 179 88 188 82"/>
+            <path class="draw p3" d="M122 105 C125 121 136 134 150 136 C164 136 176 125 180 111"/>
+            <path class="draw p4" d="M139 111 Q145 115 150 111 M164 110 Q169 113 173 108"/>
+            <path class="draw p5" d="M151 135 L151 157 M171 132 L174 154"/>
+            <path class="draw p6" d="M151 155 C128 158 107 170 98 190 C88 211 88 246 87 267"/>
+            <path class="draw p7" d="M174 153 C195 161 211 180 218 201 C223 218 222 240 225 263"/>
+            <path class="draw p8" d="M88 267 C113 282 146 288 177 281 C196 277 211 271 225 263"/>
+            <path class="draw p9" d="M105 177 C122 191 143 198 164 196 C184 194 201 187 211 177"/>
+
+            <path class="draw p10" d="M229 120 C215 104 217 78 236 63 C253 49 278 56 290 72 C300 86 298 108 287 122"/>
+            <path class="draw p11" d="M225 86 C239 91 250 80 257 73 C268 85 280 89 295 87"/>
+            <path class="draw p12" d="M226 103 C229 121 242 134 257 136 C271 136 283 126 288 110"/>
+            <path class="draw p13" d="M238 110 Q243 114 247 110 M265 110 Q270 114 275 109"/>
+            <path class="draw p14" d="M249 135 L247 154 M270 134 L274 155"/>
+            <path class="draw p15" d="M247 154 C226 161 213 176 205 194"/>
+            <path class="draw p16" d="M274 154 C297 161 313 180 319 205 C324 225 323 248 326 266"/>
+            <path class="draw p17" d="M205 194 C220 211 239 220 259 220 C282 219 301 208 316 193"/>
+            <path class="draw p18" d="M225 269 C256 285 295 282 326 266"/>
+
+            <path class="draw p19" d="M105 203 C129 217 151 229 176 231 C192 232 204 224 216 213"/>
+            <path class="draw p20" d="M309 203 C289 219 270 229 248 231 C234 232 222 225 216 213"/>
+            <path class="draw p21" d="M176 231 C188 238 199 239 210 230 C214 226 216 220 216 213"/>
+
+            <path class="draw heart-outline" d="M180 48 C169 34 149 43 155 58 C159 68 180 80 180 80 C180 80 201 68 205 58 C211 43 191 34 180 48 Z"/>
+          </g>
+        </svg>
       </div>
-      <p class="eyebrow">07.04.2025 — für immer mehr als ein Datum</p>
-      <h1>Unsere<br><em>Geschichte.</em></h1>
-      <p class="hero-text">Manche Menschen begegnen sich zufällig.<br>Und manchmal wird aus einem Gespräch eine ganze Welt.</p>
-      <button class="scroll-btn" data-scroll="#story">Unsere Geschichte <span>↓</span></button>
+
+      <div class="intro-message">
+        <div class="intro-heart">♡</div>
+        <h1>Meine Lieblingsgeschichte<br><span>bist du.</span></h1>
+        <p>Ein kleiner Ort für uns und all die Momente, die noch kommen.</p>
+      </div>
+
+      <button id="enterButton" class="enter-button" type="button">
+        <span>Unsere Geschichte öffnen</span>
+        <span class="button-heart" aria-hidden="true">♡</span>
+      </button>
+
+      <p class="tap-hint">tippe hier, wenn du bereit bist <span>✦</span></p>
+    </div>
+  </section>
+
+  <!-- EIGENTLICHE WEBSEITE -->
+  <main id="mainSite" class="main-site" aria-hidden="true" inert>
+
+    <header class="site-header">
+      <a class="brand" href="#home">our <span>love</span> story ♡</a>
+
+      <button id="musicButton" class="music-button" type="button" aria-pressed="false">
+        <span id="musicIcon">♫</span>
+        <span id="musicLabel">Musik an</span>
+      </button>
+    </header>
+
+    <!-- STARTBEREICH -->
+    <section id="home" class="hero section-shell">
+      <div class="hero-sparkle" aria-hidden="true">✦</div>
+      <p class="eyebrow">UNSERE GESCHICHTE</p>
+
+      <h2>Seit du da bist,<br><span>ist alles ein bisschen schöner.</span></h2>
+
+      <p class="hero-copy">
+        Das hier ist für dich. Für uns. Und für all die kleinen und großen Momente,
+        die unsere Geschichte besonders machen.
+      </p>
+
+      <a class="soft-button" href="#timeline">
+        Unsere Erinnerungen ansehen <span>↓</span>
+      </a>
+
+      <div class="scroll-heart" aria-hidden="true">♡</div>
     </section>
 
-    <section id="story" class="intro section">
-      <div class="section-label">01 — Der Anfang</div>
-      <div class="intro-grid">
+    <!-- BEZIEHUNGSZÄHLER -->
+    <section class="counter-section section-shell">
+      <p class="eyebrow">JEDER TAG MIT DIR ZÄHLT</p>
+      <h2>Wir zwei – seit dem <span>12. Mai 2025</span></h2>
+
+      <div class="counter" aria-label="Zeit seit dem 12. Mai 2025">
+        <div class="counter-unit">
+          <strong id="days">0</strong>
+          <span>Tage</span>
+        </div>
+
+        <div class="counter-unit">
+          <strong id="hours">00</strong>
+          <span>Stunden</span>
+        </div>
+
+        <div class="counter-unit">
+          <strong id="minutes">00</strong>
+          <span>Minuten</span>
+        </div>
+
+        <div class="counter-unit">
+          <strong id="seconds">00</strong>
+          <span>Sekunden</span>
+        </div>
+      </div>
+
+      <p class="counter-note">
+        Und ich würde jeden einzelnen davon wieder mit dir wählen. ♡
+      </p>
+    </section>
+
+    <!-- ERINNERUNGEN -->
+    <section id="timeline" class="timeline-section section-shell">
+      <p class="eyebrow">KLEINE MOMENTE, GROSSE GEFÜHLE</p>
+      <h2>Unsere <span>Erinnerungen</span></h2>
+      <p class="section-intro">
+        Jeder Anfang, jedes Wiedersehen und jedes Lächeln gehört zu unserer Geschichte.
+      </p>
+
+      <div id="timelineList" class="timeline-list"></div>
+    </section>
+
+    <!-- ROMANTISCHER STERNENHIMMEL -->
+    <section id="loveSky" class="love-sky-section section-shell">
+      <p class="eyebrow">EIN KLEINES UNIVERSUM NUR FÜR DICH</p>
+
+      <h2>Such dir einen Stern aus,<br><span>mein Lieblingsmensch.</span></h2>
+
+      <p class="section-intro">
+        Jeder Stern versteckt einen Gedanken, den ich dir vielleicht viel zu selten sage.
+        Tippe die Sterne an und entdecke, was ich in meinem Herzen für dich bewahre. ♡
+      </p>
+
+      <div class="love-sky" aria-label="Interaktiver Sternenhimmel mit versteckten Liebesbotschaften">
+        <div class="love-nebula love-nebula-one" aria-hidden="true"></div>
+        <div class="love-nebula love-nebula-two" aria-hidden="true"></div>
+
+        <div id="skyAmbientStars" class="sky-ambient-stars" aria-hidden="true"></div>
+        <div id="memoryStars" class="memory-stars"></div>
+
+        <button
+          id="shootingStar"
+          class="shooting-star"
+          type="button"
+          aria-label="Sternschnuppe anklicken und Liebesbotschaft entdecken"
+        >
+          <span aria-hidden="true">✦</span>
+        </button>
+
+        <div id="heartConstellation" class="heart-constellation" aria-hidden="true">
+          <span>·</span><span>✦</span><span>·</span><span>✦</span><span>·</span>
+          <span>✦</span><span>♡</span><span>✦</span><span>♡</span><span>✦</span>
+          <span>·</span><span>✦</span><span>·</span><span>✦</span><span>·</span>
+          <p>Du bist mein Zuhause.</p>
+        </div>
+      </div>
+
+      <div id="skyMemoryMessage" class="sky-memory-message" aria-live="polite">
+        <span class="sky-message-icon" aria-hidden="true">✧</span>
         <div>
-          <h2>Alles begann<br><em>an einem Abend.</em></h2>
+          <strong>Eine kleine Bitte</strong>
+          <p>Tippe einen der leuchtenden Sterne an. Vielleicht wartet dort ein Satz, den du heute hören musst. ♡</p>
         </div>
-        <div class="prose">
-          <p>Am <strong>07.04.2025</strong>, irgendwann zwischen 22 und 23 Uhr, haben wir uns in einem Discord-Call kennengelernt.</p>
-          <p>Wir haben angefangen zu reden. Und dann haben wir einfach nicht mehr aufgehört.</p>
-          <p>Die Tage vergingen, aus einem Gespräch wurden viele, aus vielen Gesprächen wurde <em>jeden Tag</em>. Und irgendwann war da dieses Gefühl, dass du nicht mehr einfach nur jemand warst, mit dem ich gerne rede.</p>
-          <p>Du warst jemand, auf den ich gewartet habe.</p>
-        </div>
+      </div>
+
+      <p class="sky-progress" id="skyProgress">
+        0 von 12 Sternen entdeckt <span aria-hidden="true">♡</span>
+      </p>
+
+      <p class="sky-hidden-hint">
+        Psst … manchmal versteckt sich sogar zwischen den Sternen ein kleines Geheimnis.
+      </p>
+    </section>
+
+    <!-- NORMALER LIEBESBRIEF -->
+    <section class="letter-section section-shell">
+      <div class="letter-card">
+        <div class="letter-decoration" aria-hidden="true">♡</div>
+        <p class="eyebrow">NUR FÜR DICH</p>
+
+        <h2>Ein paar Worte<br><span>von meinem Herzen.</span></h2>
+
+        <p class="letter-text">
+          Manchmal kann ich gar nicht richtig erklären, wie glücklich ich bin,
+          dich zu haben. Du bist nicht nur meine Freundin, sondern auch mein
+          Lieblingsmensch. Mit dir fühlen sich selbst ganz normale Tage besonders
+          an. Ich freue mich auf jedes Wiedersehen, auf jedes Lachen und auf all
+          die Erinnerungen, die wir noch zusammen sammeln werden. Ich liebe dich.
+          Heute, morgen und an allen Tagen danach. ♡
+        </p>
+
+        <p class="letter-signature">Für immer dein Mensch ♡</p>
       </div>
     </section>
 
-    <section class="timeline section">
-      <div class="section-label">02 — Unsere Zeit</div>
-      <h2>Kapitel für<br><em>Kapitel.</em></h2>
+    <!-- GEHEIMER BRIEF: NUR ÜBER DAS EMOJI ÖFFNEN -->
+    <div
+      id="secretLetterModal"
+      class="secret-letter-modal"
+      aria-hidden="true"
+      inert
+    >
+      <button
+        class="secret-letter-backdrop"
+        type="button"
+        data-close-secret-letter
+        aria-label="Brief schließen"
+      ></button>
 
-      <div class="timeline-list">
-        <article class="timeline-item reveal">
-          <div class="date">07.04.2025</div>
-          <div class="dot"></div>
-          <div class="card">
-            <span class="chapter">Kapitel I</span>
-            <h3>Das erste Gespräch</h3>
-            <p>Ein Discord-Call. Spät am Abend. Wir kannten uns noch nicht — und ahnten nicht, dass gerade etwas begann, das unser Leben verändern würde.</p>
-            <img class="story-photo" src="assets/photos/1. talk.jpg" alt="Unser erstes Treffen" loading="lazy">
-          </div>
-        </article>
+      <section
+        class="secret-letter-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="secretLetterTitle"
+        tabindex="-1"
+      >
+        <button
+          id="closeSecretLetter"
+          class="secret-letter-close"
+          type="button"
+          aria-label="Brief schließen"
+        >×</button>
 
-        <article class="timeline-item reveal">
-          <div class="date">~10.04.2025</div>
-          <div class="dot"></div>
-          <div class="card">
-            <span class="chapter">Kapitel II</span>
-            <h3>Ich liebe dich.</h3>
-            <p>Nur wenige Tage später habe ich dir gesagt, dass ich dich liebe. Vielleicht viel zu früh. Aber manchmal weiß das Herz Dinge, für die der Kopf noch keine Erklärung hat.</p>
-          </div>
-        </article>
+        <div class="letter-sparkles" aria-hidden="true">✦　♡　✧</div>
+        <div class="sealed-envelope" aria-hidden="true"><span>♡</span></div>
 
-        <article class="timeline-item moon-item reveal">
-          <div class="date">18.04.2025</div>
-          <div class="dot"></div>
-          <div class="card">
-            <span class="chapter">Kapitel III</span>
-            <h3>„Ist der Mond nicht schön?“</h3>
-            <p>Du hattest es schon ein paar Tage angedeutet. Immer wieder dieser Satz. „Ist der Mond nicht schön?“</p>
-            <p>Damals wusste ich vielleicht noch nicht, was du damit wirklich sagen wolltest. Heute weiß ich es. Und seitdem ist der Mond für mich nicht mehr einfach nur der Mond.</p>
-          </div>
-        </article>
+        <p class="eyebrow">NUR DU DARFST DAS LESEN</p>
+        <h2 id="secretLetterTitle">Für mein <span>Lieblingsmädchen.</span></h2>
 
-        <article class="timeline-item reveal">
-          <div class="date">12.05.2025</div>
-          <div class="dot"></div>
-          <div class="card featured">
-            <span class="chapter">Kapitel IV</span>
-            <h3>Willst du mein Freund sein?</h3>
-            <p>Du hast mich gefragt, ob ich dein Freund sein möchte.</p>
-            <p class="highlight">Und natürlich wollte ich. ❤️</p>
-            <p>Aus all unseren Gesprächen wurde etwas Echtes. Etwas, das wir von diesem Tag an gemeinsam tragen durften.</p>
-          </div>
-        </article>
+        <div class="secret-letter-copy">
+          <p>Wenn du das hier gerade liest, möchte ich, dass du für einen kleinen Moment alles andere vergisst.</p>
 
-        <article class="timeline-item reveal">
-          <div class="date">04.07.2025</div>
-          <div class="dot"></div>
-          <div class="card">
-            <span class="chapter">Kapitel V</span>
-            <h3>Zum ersten Mal wirklich wir</h3>
-            <p>Wir haben uns zum ersten Mal getroffen. Zwei Wochen bei dir. Zwei Wochen, die sich gleichzeitig viel zu lang und viel zu kurz angefühlt haben.</p>
-            <p>Wir waren mit deiner Familie in Koblenz, haben Zeit miteinander verbracht und endlich das erlebt, worüber wir vorher so oft geredet hatten.</p>
-            <img class="story-photo" src="assets/photos/Koblenz.jpg" alt="Koblenz" loading="lazy">
-            <p>Und dann musste ich wieder fahren.</p>
-          </div>
-        </article>
+          <p>
+            Ich wünschte, ich könnte jetzt bei dir sein, dich in den Arm nehmen
+            und dir persönlich sagen, wie viel du mir bedeutest. Auch wenn ich
+            nicht immer direkt neben dir sein kann, bist du in so vielen kleinen
+            Momenten bei mir: wenn ich an dich denke, wenn mich etwas an dich
+            erinnert oder wenn ich mir vorstelle, wie schön es wäre, dich gerade
+            lächeln zu sehen.
+          </p>
 
-        <article class="timeline-item reveal">
-          <div class="date">22.08.2025</div>
-          <div class="dot"></div>
-          <div class="card moon-card">
-            <span class="chapter">Kapitel VI</span>
-            <h3>Mein Geburtstag. Dein Mond.</h3>
-            <p>Ich kam für mein Geburtstagswochenende zu dir. Du hattest für mich gebacken und mir ein Bild gemalt.</p>
-            <div class="moon-symbol">☾</div>
-            <p>Es war ein Mond.</p>
-            <p>Aber du hast nicht nur gemalt. Du hast mir auch einen Liebesbrief geschrieben.</p>
-            <p>Vielleicht wusste ich spätestens da, dass dieser Mond für mich immer ein Teil unserer Geschichte bleiben würde.</p>
-          </div>
-        </article>
+          <p>
+            Manchmal denke ich an unseren ersten Discord-Call zurück und daran,
+            dass ich damals noch gar nicht wissen konnte, dass aus diesem Moment
+            einmal <em>wir</em> werden würden. Und jetzt bist du mein Lieblingsmensch.
+            Das ist irgendwie immer noch ein kleines Wunder für mich.
+          </p>
 
-        <article class="timeline-item reveal">
-          <div class="date">31.12.2025 → 01.01.2026</div>
-          <div class="dot"></div>
-          <div class="card">
-            <span class="chapter">Kapitel VII</span>
-            <h3>00:00</h3>
-            <p>Das neue Jahr begann — und mit ihm mein erster Kuss.</p>
-            <p class="highlight">Ein Neujahrskuss mit dir.</p>
-            <p>Von allen Sekunden in diesem Jahr war diese eine vielleicht die, die ich nie vergessen werde.</p>
-          </div>
-        </article>
+          <p>
+            Ich kann dir nicht versprechen, dass jeder Tag perfekt wird. Aber ich
+            möchte dir versprechen, dass du mir wichtig bist, dass ich mit dir
+            lachen möchte, dich trösten möchte, wenn etwas schwer ist, und mit dir
+            noch ganz viele Erinnerungen sammeln will.
+          </p>
 
-        <article class="timeline-item difficult reveal">
-          <div class="date">10.05.2026</div>
-          <div class="dot"></div>
-          <div class="card">
-            <span class="chapter">Kapitel VIII</span>
-            <h3>Auch schwere Kapitel gehören dazu.</h3>
-            <p>Es war nicht alles leicht. Wir hatten eine Beziehungspause und für eine Weile war unser Beziehungsstatus kompliziert.</p>
-            <p>Aber selbst dann waren wir uns nicht wirklich fern. Wir haben uns getroffen, geredet und vieles blieb irgendwie so wie immer.</p>
-            <p>Vielleicht ist genau das Liebe: nicht nur die perfekten Tage zu lieben, sondern auch dann füreinander da zu sein, wenn es schwierig wird.</p>
-          </div>
-        </article>
+          <p>
+            Falls du heute einen Moment hast, in dem du zweifelst oder traurig bist,
+            lies das hier noch einmal:
+            <strong>Du bist geliebt. Du bist wichtig. Und ich bin unglaublich froh, dass es dich gibt.</strong>
+          </p>
 
-        <article class="timeline-item reveal">
-          <div class="date">09.07. — 26.07.2026</div>
-          <div class="dot"></div>
-          <div class="card">
-            <span class="chapter">Kapitel IX</span>
-            <h3>Frankreich & der Atlantik</h3>
-            <p>Wir waren zusammen im Urlaub in Frankreich am Atlantik.</p>
-            <p>Meer, Strand, gemeinsame Tage und Erinnerungen, die wir wahrscheinlich noch in vielen Jahren erzählen werden.</p>
-            <img class="story-photo" src="assets/photos/Frankreich.jpg" alt="Frankreich am Atlantik" loading="lazy">
-          </div>
-        </article>
+          <p class="secret-letter-ending">
+            Wenn ich mir etwas wünschen dürfte, dann wäre es, noch ganz viele Morgen,
+            Abende und ganz gewöhnliche Tage mit dir zu erleben. Denn mit dir werden
+            selbst die kleinen Dinge besonders.
+          </p>
 
-        <article class="timeline-item proposal reveal">
-          <div class="date">18.07.2026</div>
-          <div class="dot"></div>
-          <div class="card featured proposal-card">
-            <span class="chapter">Kapitel X</span>
-            <h3>„Willst du wieder mein Freund sein?“</h3>
-            <p>Du hast mich gefragt, ob ich wieder dein Freund sein möchte.</p>
-            <p>Ich wollte.</p>
-            <div class="divider"></div>
-            <p>Und am Abend habe ich dich gegen 22 oder 23 Uhr zum Strand entführt.</p>
-            <p>Nur dass ich diesmal nicht einfach mit dir reden wollte.</p>
-            <p class="big-line">Ich wollte dich etwas fragen.</p>
-            <div class="ring">💍</div>
-            <p>Und so wurde aus einem Abend am Atlantik ein Moment, den wir hoffentlich niemals vergessen werden.</p>
-          </div>
-        </article>
+          <p class="secret-letter-signature">
+            Ich liebe dich. Heute, morgen und immer wieder. ♡
+            <br>
+            <span>Dein Mensch</span>
+          </p>
+        </div>
+
+        <div class="letter-bottom-heart" aria-hidden="true">♡</div>
+      </section>
+    </div>
+
+    <!-- ABSCHLUSS UND VERSTECKTES BRIEF-EMOJI -->
+    <footer class="site-footer">
+      <div class="footer-heart">♡</div>
+      <p>Unsere Geschichte ist noch lange nicht zu Ende.</p>
+
+      <div class="footer-bottom">
+        <span>Mit Liebe gemacht – nur für uns.</span>
+
+        <button
+          id="openSecretLetter"
+          class="secret-envelope-trigger"
+          type="button"
+          aria-label="Geheimen Liebesbrief öffnen"
+          title="Ein kleines Geheimnis 💌"
+        >💌</button>
       </div>
-    </section>
+    </footer>
 
-    <section class="letter section">
-      <div class="section-label">03 — Ein Brief an dich</div>
-      <div class="letter-wrap">
-        <div class="letter-top">Für dich, mein Lieblingsmensch</div>
-        <h2>Wenn ich an uns denke …</h2>
-        <div class="letter-text">
-          <p>… denke ich zuerst daran, wie verrückt es eigentlich ist, dass unsere Geschichte mit einem ganz normalen Discord Call angefangen hat.</p>
-          <p>Ein Abend, ein Gespräch und zwei Menschen, die noch nicht wussten, wie wichtig sie einander einmal werden würden (Kaum gespräche xD).</p>
-          <p>Seit diesem Abend ist so viel passiert. Wir haben gelacht, geredet, uns vermisst, uns wiedergesehen, zusammen neue Orte entdeckt und Erinnerungen gesammelt, die ich niemals gegen irgendetwas eintauschen würde.</p>
-          <p>Du hast mir gezeigt, dass Liebe nicht nur aus großen romantischen Momenten besteht. Sie steckt auch in den kleinen Dingen. In unseren Gesprächen (Wenn es welche gibt). In deinem Lachen. In dem Gefühl, dass ich dir einfach erzählen möchte, was gerade in meinem Kopf passiert.</p>
-          <p>Und dann ist da noch dieser Mond.</p>
-          <p>„Ist der Mond nicht schön?“</p>
-          <p>Ein Satz, der damals vielleicht nur ein Satz war. Heute ist er ein Teil unserer Geschichte. Ein kleines Zeichen dafür, wie aus etwas Unscheinbarem etwas unglaublich Bedeutendes werden kann.</p>
-          <p>Ich weiß, dass nicht jeder Tag perfekt sein wird. Unsere Geschichte hat uns das bereits gezeigt. Aber ich weiß auch, dass ich die schönen Tage mit dir umso mehr schätze — und dass ich die schweren Tage nicht einfach vergessen möchte.</p>
-          <p>Denn am Ende bist du die Person, mit der ich all diese Kapitel schreiben möchte.</p>
-          <p>Danke für jedes Gespräch. Für jede Umarmung. Für jeden Kuss. Für jedes Lächeln. Für jeden Streit, aus dem wir etwas gelernt haben. Für jeden Ort, den wir gemeinsam gesehen haben.</p>
-          <p>Und vor allem: Danke, dass du du bist.</p>
-          <p class="signature">Ich liebe dich.<br><span>Heute, morgen und in jedem Kapitel, das noch kommt.</span></p>
-        </div>
-      </div>
-    </section>
-
-    <section class="memories section">
-      <div class="section-label">04 — Unsere Momente</div>
-      <h2>Ein paar Plätze<br><em>für unsere Erinnerungen.</em></h2>
-      <p class="section-subtitle">Lege später eure Fotos in <code>assets/photos/</code> und ersetze die Platzhalter im HTML.</p>
-      <div class="gallery">
-        <div class="photo-gallery-card" data-photo="assets/photos/Erstestreffen.jpg">
-          <img src="assets/photos/Erstestreffen.jpg" alt="Unser erstes Treffen" loading="lazy">
-          <div class="photo-caption"><b>Unser erstes Treffen</b><small>Eine Erinnerung an unseren Anfang.</small></div>
-        </div>
-        <div class="photo-gallery-card" data-photo="assets/photos/Koblenz.jpg">
-          <img src="assets/photos/Koblenz.jpg" alt="Koblenz" loading="lazy">
-          <div class="photo-caption"><b>Unser Tag in Koblenz</b><small>Ein gemeinsamer Moment in Koblenz.</small></div>
-        </div>
-        <div class="photo-gallery-card" data-photo="assets/photos/Frankreich.jpg">
-          <img src="assets/photos/Frankreich.jpg" alt="Frankreich am Atlantik" loading="lazy">
-          <div class="photo-caption"><b>Frankreich</b><small>Wir am Atlantik.</small></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="final section">
-      <div class="final-moon"><div class="moon"></div></div>
-      <p class="eyebrow">12.08.2026 · 1 Jahr & 3 Monate</p>
-      <h2>Und unsere<br><em>Geschichte</em> geht weiter.</h2>
-      <p>Vielleicht war der 07.04.2025 nur ein gewöhnlicher Abend.</p>
-      <p>Für mich war es der Anfang von uns.</p>
-      <div class="final-heart">♥</div>
-      <p class="forever">Für immer dein.</p>
-    </section>
   </main>
 
-  <footer>
-    <span>Gemacht mit Liebe.</span>
-    <span>Für uns. ♥</span>
-  </footer>
-
-
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <button class="lightbox-close" id="lightboxClose" aria-label="Bild schließen">×</button>
-    <img id="lightboxImage" src="" alt="">
-  </div>
-
-  <audio id="bgMusic" loop preload="none">
-    <!-- Optional: Lege eure Musik als assets/song.mp3 ab und entferne das src-Attribut nicht:
-         <source src="assets/song.mp3" type="audio/mpeg"> -->
-    <source src="assets/song.mp3" type="audio/mpeg">
+  <!-- MUSIKDATEI -->
+  <audio id="backgroundMusic" loop preload="none">
+    <source src="assets/music.mp3" type="audio/mpeg">
   </audio>
 
-  <script>
-const scrollButtons = document.querySelectorAll("[data-scroll]");
-scrollButtons.forEach(btn => btn.addEventListener("click", () => {
-  document.querySelector(btn.dataset.scroll)?.scrollIntoView({behavior:"smooth"});
-}));
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
-      observer.unobserve(entry.target);
-    }
-  });
-}, {threshold:0.12});
-document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-
-const musicButton = document.getElementById("musicToggle");
-const music = document.getElementById("bgMusic");
-let hasSource = false;
-if (music.querySelector("source")) hasSource = true;
-
-musicButton.addEventListener("click", async () => {
-  if (!hasSource) {
-    alert("Lege eure Musik als assets/song.mp3 ab und füge sie in index.html als <source> ein.");
-    return;
-  }
-  if (music.paused) {
-    await music.play();
-    musicButton.textContent = "❚❚";
-  } else {
-    music.pause();
-    musicButton.textContent = "♫";
-  }
-});
-
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden && !music.paused) music.pause();
-});
-
-
-
-const lightbox = document.getElementById("lightbox");
-const lightboxImage = document.getElementById("lightboxImage");
-const lightboxClose = document.getElementById("lightboxClose");
-
-function closeLightbox() {
-  lightbox.classList.remove("open");
-  lightbox.setAttribute("aria-hidden", "true");
-  lightboxImage.src = "";
-}
-
-document.querySelectorAll(".story-photo, .photo-gallery-card").forEach(el => {
-  el.addEventListener("click", () => {
-    const src = el.dataset.photo || el.getAttribute("src");
-    const alt = el.getAttribute("alt") || el.querySelector("img")?.getAttribute("alt") || "";
-    lightboxImage.src = src;
-    lightboxImage.alt = alt;
-    lightbox.classList.add("open");
-    lightbox.setAttribute("aria-hidden", "false");
-  });
-});
-
-lightboxClose.addEventListener("click", closeLightbox);
-lightbox.addEventListener("click", (event) => {
-  if (event.target === lightbox) closeLightbox();
-});
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") closeLightbox();
-});
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
