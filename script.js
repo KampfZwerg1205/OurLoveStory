@@ -65,7 +65,7 @@ const playlistPlayPauseButton = document.getElementById("playlistPlayPause");
 // Die MP3-Dateien selbst müssen im Repository unter assets/music/ liegen.
 const musicPlaylist = [
   {
-    title: "Unser Lied",
+    title: "Shape of you",
     artist: "Für uns",
     src: "assets/music.mp3"
   },
@@ -78,7 +78,7 @@ const musicPlaylist = [
     title: "Ghost",
     artist: "Nightcore Zodiac",
     src: "assets/music/Nightcore - Ghost (Lyrics).mp3"
-  }
+  },
   // Beispiel für weitere Songs:
   // ,{ title: "Unser Moment", artist: "Künstlername", src: "assets/music/song-2.mp3" }
 ];
