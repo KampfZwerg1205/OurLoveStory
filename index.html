@@ -103,6 +103,30 @@
           aria-label="Lautstärke der Hintergrundmusik"
         >
       </div>
+
+      <button id="playlistToggle" class="playlist-toggle" type="button" aria-expanded="false" aria-controls="playlistPanel">
+        <span aria-hidden="true">♫</span>
+        <span>Playlist</span>
+      </button>
+
+      <section id="playlistPanel" class="playlist-panel" aria-label="Musik-Playlist" hidden>
+        <div class="playlist-heading">
+          <div>
+            <p class="playlist-eyebrow">UNSERE MUSIK</p>
+            <h2>Unsere Playlist ♡</h2>
+          </div>
+          <button id="playlistClose" class="playlist-close" type="button" aria-label="Playlist schließen">×</button>
+        </div>
+        <p id="currentTrackLabel" class="current-track-label">Noch kein Lied ausgewählt</p>
+        <div class="playlist-controls">
+          <button id="previousTrack" type="button" aria-label="Vorheriges Lied">⏮</button>
+          <button id="playlistPlayPause" class="playlist-play-pause" type="button" aria-label="Musik abspielen">▶</button>
+          <button id="nextTrack" type="button" aria-label="Nächstes Lied">⏭</button>
+        </div>
+        <p class="playlist-list-heading">Lieder</p>
+        <ol id="playlistTracks" class="playlist-tracks"></ol>
+        <p class="playlist-help">Deine MP3-Dateien kommen in <code>assets/music/</code>. Weitere Titel kannst du in der Playlist-Liste in <code>script.js</code> eintragen.</p>
+      </section>
     </header>
 
     <!-- STARTBEREICH -->
@@ -344,7 +368,7 @@
   </main>
 
   <!-- MUSIKDATEI -->
-  <audio id="backgroundMusic" loop preload="none">
+  <audio id="backgroundMusic" preload="none">
     <source src="assets/music.mp3" type="audio/mpeg">
   </audio>
 
