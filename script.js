@@ -72,7 +72,7 @@ const musicPlaylist = [
    {
     title: "Thats so True",
     artist: "Gracie Abrams",
-    src: "assets/music/That´s So True.mp3"
+    src: "assets/music/That’s So True.mp3"
   },
    {
     title: "Ghost",
