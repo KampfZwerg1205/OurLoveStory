@@ -52,9 +52,34 @@ const musicLabel = document.getElementById("musicLabel");
 const musicIcon = document.getElementById("musicIcon");
 const musicVolume = document.getElementById("musicVolume");
 const musicVolumeValue = document.getElementById("musicVolumeValue");
+const playlistToggle = document.getElementById("playlistToggle");
+const playlistPanel = document.getElementById("playlistPanel");
+const playlistClose = document.getElementById("playlistClose");
+const playlistTracks = document.getElementById("playlistTracks");
+const currentTrackLabel = document.getElementById("currentTrackLabel");
+const previousTrackButton = document.getElementById("previousTrack");
+const nextTrackButton = document.getElementById("nextTrack");
+const playlistPlayPauseButton = document.getElementById("playlistPlayPause");
+
+// Füge weitere Lieder hinzu, indem du hier neue Einträge ergänzt.
+// Die MP3-Dateien selbst müssen im Repository unter assets/music/ liegen.
+const musicPlaylist = [
+  {
+    title: "Unser Lied",
+    artist: "Für uns",
+    src: "assets/music.mp3"
+  }
+  // Beispiel für weitere Songs:
+  // ,{ title: "Unser Moment", artist: "Künstlername", src: "assets/music/song-2.mp3" }
+];
+
+let currentTrackIndex = 0;
 
 if (backgroundMusic) {
   backgroundMusic.volume = 0.5;
+  if (musicPlaylist.length > 0) {
+    backgroundMusic.src = musicPlaylist[0].src;
+  }
 }
 
 function updateMusicVolume() {
@@ -68,6 +93,109 @@ function updateMusicVolume() {
   }
 
   musicVolume.setAttribute("aria-valuetext", `${volume}% Lautstärke`);
+}
+
+function renderPlaylist() {
+  if (!playlistTracks) return;
+
+  playlistTracks.replaceChildren();
+
+  musicPlaylist.forEach((track, index) => {
+    const item = document.createElement("li");
+    const button = document.createElement("button");
+    const number = document.createElement("span");
+    const title = document.createElement("span");
+
+    button.type = "button";
+    button.className = "playlist-track-button";
+    button.classList.toggle("active", index === currentTrackIndex);
+    button.setAttribute("aria-current", index === currentTrackIndex ? "true" : "false");
+
+    number.className = "playlist-track-number";
+    number.textContent = String(index + 1).padStart(2, "0");
+
+    title.textContent = track.title;
+    button.append(number, title);
+    button.addEventListener("click", () => selectTrack(index, true));
+
+    item.append(button);
+    playlistTracks.append(item);
+  });
+
+  updateCurrentTrackLabel();
+}
+
+function updateCurrentTrackLabel() {
+  if (!currentTrackLabel || musicPlaylist.length === 0) return;
+  const track = musicPlaylist[currentTrackIndex];
+  currentTrackLabel.textContent = `${track.title} · ${track.artist}`;
+}
+
+function updatePlaylistPlaybackState() {
+  const isPlaying = Boolean(backgroundMusic && !backgroundMusic.paused);
+
+  musicButton?.classList.toggle("playing", isPlaying);
+  musicButton?.setAttribute("aria-pressed", String(isPlaying));
+
+  if (musicLabel) musicLabel.textContent = isPlaying ? "Musik aus" : "Musik an";
+  if (musicIcon) musicIcon.textContent = "♫";
+
+  if (playlistPlayPauseButton) {
+    playlistPlayPauseButton.textContent = isPlaying ? "Ⅱ" : "▶";
+    playlistPlayPauseButton.setAttribute("aria-label", isPlaying ? "Musik pausieren" : "Musik abspielen");
+  }
+}
+
+async function selectTrack(index, autoplay = false) {
+  if (!backgroundMusic || musicPlaylist.length === 0) return;
+
+  currentTrackIndex = (index + musicPlaylist.length) % musicPlaylist.length;
+  const track = musicPlaylist[currentTrackIndex];
+
+  backgroundMusic.pause();
+  backgroundMusic.src = track.src;
+  backgroundMusic.load();
+
+  renderPlaylist();
+  updatePlaylistPlaybackState();
+
+  if (autoplay) {
+    try {
+      await backgroundMusic.play();
+    } catch (error) {
+      if (musicLabel) musicLabel.textContent = "Musikdatei prüfen";
+      console.warn(`Der Titel "${track.title}" konnte nicht abgespielt werden. Prüfe den Pfad: ${track.src}`, error);
+    }
+  }
+
+  updatePlaylistPlaybackState();
+}
+
+async function toggleMusic() {
+  if (!backgroundMusic || musicPlaylist.length === 0) return;
+
+  if (backgroundMusic.paused) {
+    try {
+      await backgroundMusic.play();
+    } catch (error) {
+      if (musicLabel) musicLabel.textContent = "Musikdatei prüfen";
+      console.warn("Musik konnte nicht gestartet werden. Prüfe die MP3-Datei und den Pfad.", error);
+    }
+  } else {
+    backgroundMusic.pause();
+  }
+
+  updatePlaylistPlaybackState();
+}
+
+function togglePlaylist() {
+  if (!playlistPanel || !playlistToggle) return;
+
+  const willOpen = playlistPanel.hidden;
+  playlistPanel.hidden = !willOpen;
+  playlistToggle.setAttribute("aria-expanded", String(willOpen));
+
+  if (willOpen) playlistClose?.focus();
 }
 
 const secretLetterModal = document.getElementById("secretLetterModal");
@@ -282,39 +410,7 @@ function renderTimeline() {
    MUSIK STEUERN
 ========================================= */
 
-async function toggleMusic() {
-  if (!backgroundMusic) return;
 
-  if (backgroundMusic.paused) {
-    try {
-      await backgroundMusic.play();
-
-      musicButton.classList.add("playing");
-      musicButton.setAttribute("aria-pressed", "true");
-
-      musicLabel.textContent = "Musik aus";
-      musicIcon.textContent = "♫";
-
-    } catch (error) {
-      musicLabel.textContent = "Musikdatei fehlt";
-      musicIcon.textContent = "♪";
-
-      console.warn(
-        "Musik konnte nicht gestartet werden. Lege assets/music.mp3 ab.",
-        error
-      );
-    }
-
-  } else {
-    backgroundMusic.pause();
-
-    musicButton.classList.remove("playing");
-    musicButton.setAttribute("aria-pressed", "false");
-
-    musicLabel.textContent = "Musik an";
-    musicIcon.textContent = "♫";
-  }
-}
 
 /* =========================================
    ALLES INITIALISIEREN
@@ -332,10 +428,30 @@ document.addEventListener("DOMContentLoaded", () => {
   // Startbildschirm
   enterButton?.addEventListener("click", openLoveStory);
 
-  // Musik und Lautstärke
+  // Musik, Playlist und Lautstärke
   musicButton?.addEventListener("click", toggleMusic);
   musicVolume?.addEventListener("input", updateMusicVolume);
+  playlistToggle?.addEventListener("click", togglePlaylist);
+  playlistClose?.addEventListener("click", togglePlaylist);
+  previousTrackButton?.addEventListener("click", () => selectTrack(currentTrackIndex - 1, true));
+  nextTrackButton?.addEventListener("click", () => selectTrack(currentTrackIndex + 1, true));
+  playlistPlayPauseButton?.addEventListener("click", toggleMusic);
+
+  backgroundMusic?.addEventListener("play", updatePlaylistPlaybackState);
+  backgroundMusic?.addEventListener("pause", updatePlaylistPlaybackState);
+  backgroundMusic?.addEventListener("ended", () => selectTrack(currentTrackIndex + 1, true));
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && playlistPanel && !playlistPanel.hidden) {
+      playlistPanel.hidden = true;
+      playlistToggle?.setAttribute("aria-expanded", "false");
+      playlistToggle?.focus();
+    }
+  });
+
+  renderPlaylist();
   updateMusicVolume();
+  updatePlaylistPlaybackState();
 
   // Nur das Brief-Emoji im Footer öffnet den geheimen Brief.
   openSecretLetterButton?.addEventListener(
