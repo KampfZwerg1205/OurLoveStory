@@ -376,6 +376,61 @@ function updateCounter() {
 }
 
 /* =========================================
+   COUNTDOWN BIS ZUM NÄCHSTEN JAHRESTAG
+========================================= */
+
+function updateAnniversaryCountdown() {
+  const now = new Date();
+
+  // Nächster Jahrestag: immer am 12. Mai um 21:52 Uhr.
+  let target = new Date(now.getFullYear(), 4, 12, 21, 52, 0);
+
+  // Ist der Jahrestag dieses Jahres bereits vorbei,
+  // wird der nächste im folgenden Jahr verwendet.
+  if (now.getTime() >= target.getTime()) {
+    target = new Date(now.getFullYear() + 1, 4, 12, 21, 52, 0);
+  }
+
+  const difference = target.getTime() - now.getTime();
+
+  const days = Math.floor(difference / 86400000);
+  const hours = Math.floor((difference % 86400000) / 3600000);
+  const minutes = Math.floor((difference % 3600000) / 60000);
+  const seconds = Math.floor((difference % 60000) / 1000);
+
+  const daysElement = document.getElementById("anniversaryDays");
+  const hoursElement = document.getElementById("anniversaryHours");
+  const minutesElement = document.getElementById("anniversaryMinutes");
+  const secondsElement = document.getElementById("anniversarySeconds");
+  const dateElement = document.getElementById("anniversaryDate");
+
+  if (daysElement) {
+    daysElement.textContent = days.toLocaleString("de-DE");
+  }
+
+  if (hoursElement) {
+    hoursElement.textContent = String(hours).padStart(2, "0");
+  }
+
+  if (minutesElement) {
+    minutesElement.textContent = String(minutes).padStart(2, "0");
+  }
+
+  if (secondsElement) {
+    secondsElement.textContent = String(seconds).padStart(2, "0");
+  }
+
+  if (dateElement) {
+    dateElement.textContent =
+      target.toLocaleDateString("de-DE", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }) + " · 21:52 Uhr ♡";
+  }
+}
+
+/* =========================================
    ERINNERUNGEN ANZEIGEN
 ========================================= */
 
@@ -432,8 +487,10 @@ document.addEventListener("DOMContentLoaded", () => {
   createStars();
   renderTimeline();
   updateCounter();
+  updateAnniversaryCountdown();
 
   window.setInterval(updateCounter, 1000);
+  window.setInterval(updateAnniversaryCountdown, 1000);
 
   // Startbildschirm
   enterButton?.addEventListener("click", openLoveStory);
