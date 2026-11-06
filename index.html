@@ -7,6 +7,12 @@
   <meta name="theme-color" content="#100b27">
   <title>Our Love Story ♡</title>
   <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  >
 </head>
 <body>
 
@@ -229,6 +235,39 @@
       <div id="timelineList" class="timeline-list"></div>
     </section>
 
+    <!-- UNSERE GEMEINSAME LANDKARTE -->
+    <section id="ourMapSection" class="our-map-section section-shell">
+      <p class="eyebrow">ORTE, DIE ZU UNS GEHÖREN</p>
+      <h2>Unsere gemeinsame <span>Landkarte</span></h2>
+      <p class="section-intro">
+        Manche Orte sind mehr als nur Punkte auf einer Karte. Sie erinnern uns an
+        Augenblicke, die für immer zu unserer Geschichte gehören. ♡
+      </p>
+
+      <div class="our-map-card">
+        <div class="our-map-heading">
+          <span class="map-heading-icon" aria-hidden="true">♡</span>
+          <div>
+            <h3>Unsere kleinen und großen Abenteuer</h3>
+            <p>Tippe auf ein Herz, um die Erinnerung zu öffnen.</p>
+          </div>
+        </div>
+        <div
+          id="ourMap"
+          class="our-map"
+          role="region"
+          aria-label="Interaktive Karte mit unseren gemeinsamen Orten"
+        ></div>
+        <p class="map-attribution">
+          Kartendaten © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>
+          · Darstellung mit <a href="https://leafletjs.com/" target="_blank" rel="noopener noreferrer">Leaflet</a>
+        </p>
+      </div>
+
+      <div id="mapMemories" class="map-memories" aria-live="polite"></div>
+      <p class="map-note">Und irgendwann kommen noch ganz viele weitere Herzen dazu. ♡</p>
+    </section>
+
     <!-- ROMANTISCHER STERNENHIMMEL -->
     <section id="loveSky" class="love-sky-section section-shell">
       <p class="eyebrow">EIN KLEINES UNIVERSUM NUR FÜR DICH</p>
@@ -410,6 +449,7 @@
     <source src="assets/music.mp3" type="audio/mpeg">
   </audio>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="script.js"></script>
 </body>
 </html>
