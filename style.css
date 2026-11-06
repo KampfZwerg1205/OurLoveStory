@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
 
 :root {
@@ -298,9 +297,6 @@ button {
   margin: 12px 0 0;
   color: #a99abf;
   font-size: .7rem;
-}
-
-
   letter-spacing: .07em;
   opacity: 0;
   animation: fadeIn .8s 2.3s forwards;
@@ -352,7 +348,7 @@ button {
 
 .music-button {
   position: fixed !important;
-  right: 18px !important;
+  right: 132px !important;
   bottom: 18px !important;
   top: auto !important;
   z-index: 9999 !important;
@@ -380,7 +376,6 @@ button {
   color: #ffc8ef;
 }
 
-/* Lautstärkeregler für die Hintergrundmusik */
 .music-volume-control {
   position: fixed;
   right: 18px;
@@ -422,7 +417,6 @@ button {
   outline-offset: 4px;
 }
 
-/* Aufklappbare Playlist */
 .playlist-toggle {
   position: fixed;
   right: 18px;
@@ -439,10 +433,6 @@ button {
   box-shadow: 0 7px 24px rgba(0,0,0,.2);
   backdrop-filter: blur(12px);
   cursor: pointer;
-}
-
-.music-button {
-  right: 132px !important;
 }
 
 .playlist-panel {
@@ -585,30 +575,6 @@ button {
 
 .playlist-help code {
   color: #ffc8ef;
-}
-
-@media (max-width: 480px) {
-  .music-volume-control {
-    right: 12px;
-    bottom: 70px;
-    width: min(230px, calc(100vw - 24px));
-  }
-
-  .playlist-toggle {
-    right: 12px;
-    bottom: 12px;
-  }
-
-  .music-button {
-    right: 118px !important;
-    bottom: 12px !important;
-  }
-
-  .playlist-panel {
-    right: 12px;
-    bottom: 126px;
-    width: calc(100vw - 24px);
-  }
 }
 
 /* =========================================
@@ -832,7 +798,6 @@ button {
   transform: translateY(0);
 }
 
-
 .memory-card::before {
   content: '♡';
   position: absolute;
@@ -950,7 +915,6 @@ button {
   text-align: left;
 }
 
-/* Das versteckte Brief-Emoji */
 .secret-envelope-trigger {
   flex-shrink: 0;
   display: grid;
@@ -1133,7 +1097,6 @@ button {
   color: #dcb5dc;
 }
 
-
 .secret-letter-signature {
   margin-top: 27px !important;
   text-align: center;
@@ -1170,7 +1133,9 @@ body.secret-letter-open {
   overflow: hidden !important;
 }
 
-/* Animationen */
+/* =========================================
+   ANIMATIONEN
+========================================= */
 
 @keyframes drawLine {
   to { stroke-dashoffset: 0; }
@@ -1218,121 +1183,9 @@ body.secret-letter-open {
   to { opacity: 1; }
 }
 
-/* Handy und Tablet */
-
-@media (max-height: 760px) {
-  .intro-content {
-    transform: scale(.84);
-    padding: 8px 0;
-  }
-
-  .couple-wrap {
-    width: min(78vw, 310px);
-    margin-top: -10px;
-  }
-
-  .intro-message h1 {
-    font-size: clamp(1.8rem, 6vw, 2.5rem);
-  }
-
-  .enter-button {
-    margin-top: 15px;
-  }
-}
-
-@media (max-width: 430px) {
-  .intro-content {
-    width: calc(100% - 24px);
-  }
-
-  .couple-wrap {
-    width: min(100%, 315px);
-  }
-
-  .intro-message p {
-    font-size: .8rem;
-  }
-
-  .enter-button {
-    padding: 12px 16px;
-    font-size: .87rem;
-  }
-
-  .section-shell {
-    padding: 66px 18px;
-  }
-
-  .hero {
-    min-height: 500px;
-  }
-
-  .counter-unit {
-    width: calc(50% - 8px);
-    min-height: 92px;
-  }
-
-  .counter-unit strong {
-    font-size: 1.8rem;
-  }
-
-  .memory-card {
-    margin-left: 42px;
-    padding: 19px 17px;
-  }
-
-  .timeline-list::before {
-    left: 14px;
-  }
-
-  .memory-card::before {
-    left: -36px;
-    width: 25px;
-    height: 25px;
-  }
-}
-
-@media (max-width: 480px) {
-  .footer-bottom {
-    gap: 10px;
-  }
-
-  .secret-envelope-trigger {
-    width: 44px;
-    height: 44px;
-  }
-
-  .secret-letter-modal {
-    padding: 10px;
-  }
-
-  .secret-letter-dialog {
-    max-height: 91dvh;
-    padding: 25px 20px;
-    border-radius: 22px;
-  }
-
-  .secret-letter-close {
-    margin: -10px -8px 0 8px;
-  }
-
-  .music-button {
-    right: 12px !important;
-    bottom: 12px !important;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: .01ms !important;
-  }
-}
-
-/* Magischer Hintergrund der Hauptseite */
+/* =========================================
+   MAGISCHER HINTERGRUND DER HAUPTSEITE
+========================================= */
 
 .main-site.visible {
   background:
@@ -1715,45 +1568,6 @@ body.secret-letter-open {
   to { filter: drop-shadow(0 0 15px rgba(255,159,239,.9)); }
 }
 
-@media (max-width:600px) {
-  .love-sky {
-    min-height: 380px;
-    border-radius: 22px;
-  }
-
-  .memory-star {
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-  }
-
-  .heart-constellation {
-    transform: translate(-50%,-50%) scale(.8);
-  }
-
-  .heart-constellation.revealed {
-    transform: translate(-50%,-50%) scale(.8);
-  }
-
-  .sky-memory-message {
-    padding: 17px 16px;
-    gap: 10px;
-  }
-
-  .sky-memory-message p {
-    font-size: .92rem;
-  }
-}
-
-@media (prefers-reduced-motion:reduce) {
-  .love-nebula,
-  .sky-ambient-star,
-  .memory-star,
-  .heart-constellation.revealed {
-    animation: none !important;
-  }
-}
-
 /* =========================================
    COUNTDOWN BIS ZUM JAHRESTAG
 ========================================= */
@@ -1853,35 +1667,19 @@ body.secret-letter-open {
   line-height: 1.7;
 }
 
-@media (max-width: 600px) {
-  .anniversary-counter {
-    gap: 10px;
-  }
-
-  .anniversary-unit {
-    width: calc(50% - 10px);
-    min-height: 96px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .anniversary-unit {
-    transition: none;
-  }
-
-  .anniversary-unit:hover {
-    transform: none;
-  }
-}
-
-
 /* =========================================
-   UNSERE GEMEINSAME LANDKARTE
+   FANTASY-SCHATZKARTE
 ========================================= */
 
 .our-map-section {
+  position: relative;
+  overflow: hidden;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(126, 83, 155, .13), transparent 55%),
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(126, 83, 155, .16),
+      transparent 55%
+    ),
     linear-gradient(180deg, #170f2d, #1a1038);
 }
 
@@ -1900,12 +1698,16 @@ body.secret-letter-open {
 }
 
 .our-map-card {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 36px auto 0;
-  padding: 18px;
+  padding: 20px;
   border: 1px solid rgba(226, 174, 224, .2);
-  border-radius: 24px;
-  background: linear-gradient(145deg, rgba(43, 28, 65, .96), rgba(27, 18, 48, .98));
+  border-radius: 26px;
+  background: linear-gradient(
+    145deg,
+    rgba(43, 28, 65, .96),
+    rgba(27, 18, 48, .98)
+  );
   box-shadow: 0 22px 55px rgba(0, 0, 0, .24);
   text-align: left;
 }
@@ -1914,20 +1716,21 @@ body.secret-letter-open {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 4px 4px 18px;
+  padding: 4px 4px 20px;
 }
 
 .map-heading-icon {
   display: grid;
-  flex: 0 0 44px;
-  width: 44px;
-  height: 44px;
+  flex: 0 0 46px;
+  width: 46px;
+  height: 46px;
   place-items: center;
   border: 1px solid rgba(242, 183, 223, .3);
   border-radius: 50%;
   color: #f5bde4;
   background: rgba(217, 124, 197, .12);
-  font-size: 1.45rem;
+  font-size: 1.5rem;
+  box-shadow: 0 0 20px rgba(217,124,197,.1);
 }
 
 .our-map-heading h3 {
@@ -1938,125 +1741,789 @@ body.secret-letter-open {
   font-weight: 400;
 }
 
-.our-map-heading p,
-.map-note {
+.our-map-heading p {
   margin: 0;
   color: #c0accb;
   font-size: .88rem;
   line-height: 1.6;
 }
 
-.our-map {
+/* Die eigentliche Karte */
+
+.our-map.fantasy-map {
+  position: relative;
+  isolation: isolate;
   z-index: 0;
   width: 100%;
-  height: clamp(320px, 52vw, 520px);
+  min-height: 650px;
+  height: auto;
   overflow: hidden;
-  border: 1px solid rgba(242, 183, 223, .2);
-  border-radius: 17px;
-  background: #211934;
+  border: 1px solid rgba(239, 205, 157, .55);
+  border-radius: 18px;
+  background:
+    radial-gradient(ellipse at 50% 45%, rgba(255,241,199,.12), transparent 65%),
+    #392b32;
+  box-shadow:
+    inset 0 0 45px rgba(38, 22, 25, .55),
+    0 12px 32px rgba(0,0,0,.22);
 }
 
-.our-map .leaflet-tile {
-  filter: brightness(.72) saturate(.72) hue-rotate(218deg);
+/* Pergamentfläche */
+
+.fantasy-map-art {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 48% 45%, rgba(255,245,205,.35), transparent 65%),
+    linear-gradient(135deg, #d8bd8b 0%, #c7a879 35%, #dfc99b 68%, #b99469 100%);
+  color: #594535;
 }
 
-.our-map .leaflet-control-zoom a {
-  color: #f8eafa;
-  border-color: #594267;
-  background: #241735;
+.fantasy-map-paper {
+  position: absolute;
+  inset: 0;
+  opacity: .52;
+  background:
+    radial-gradient(ellipse at 12% 18%, rgba(110,67,38,.23), transparent 24%),
+    radial-gradient(ellipse at 88% 78%, rgba(110,67,38,.2), transparent 26%),
+    radial-gradient(ellipse at 52% 50%, transparent 45%, rgba(74,43,31,.22) 100%),
+    repeating-linear-gradient(
+      8deg,
+      transparent 0,
+      rgba(95,64,40,.035) 1px,
+      transparent 3px,
+      transparent 7px
+    );
 }
 
-.our-map .leaflet-control-attribution {
-  color: #493d54;
-  background: rgba(248, 234, 250, .82);
-  font-size: 10px;
+.fantasy-map-grain {
+  position: absolute;
+  inset: 0;
+  opacity: .2;
+  pointer-events: none;
+  background-image:
+    repeating-radial-gradient(
+      circle at 20% 30%,
+      rgba(68,44,28,.22) 0,
+      rgba(68,44,28,.22) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  background-size: 13px 13px;
+  mix-blend-mode: multiply;
 }
 
-.our-map .leaflet-control-attribution a {
-  color: #49305f;
+.fantasy-map-border {
+  position: absolute;
+  inset: 13px;
+  border: 2px solid rgba(91,59,39,.62);
+  border-radius: 9px;
+  box-shadow:
+    inset 0 0 0 5px rgba(255,239,197,.18),
+    0 0 0 1px rgba(255,239,197,.18);
+  pointer-events: none;
 }
 
-.our-map .leaflet-popup-content-wrapper,
-.our-map .leaflet-popup-tip {
-  color: #f8eafa;
-  background: #241735;
+.fantasy-map-border::before,
+.fantasy-map-border::after {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(91,59,39,.24);
+  border-radius: 5px;
 }
 
-.our-map .leaflet-popup-content {
-  margin: 13px 16px;
-  font-family: 'DM Sans', sans-serif;
+.fantasy-map-border::after {
+  inset: 13px;
+  border-style: dotted;
+  opacity: .5;
+}
+
+/* Kartentitel */
+
+.fantasy-map-title {
+  position: absolute;
+  z-index: 2;
+  top: 6%;
+  left: 50%;
+  width: min(55%, 430px);
+  transform: translateX(-50%);
+  color: #593d2b;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(255,245,213,.5);
+}
+
+.fantasy-map-title h3 {
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.3rem, 3vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.fantasy-map-title p {
+  margin: 6px 0 0;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(.65rem, 1.3vw, .85rem);
+  font-style: italic;
+  letter-spacing: .16em;
+}
+
+/* Kompass */
+
+.fantasy-compass {
+  position: absolute;
+  z-index: 3;
+  top: 7%;
+  right: 7%;
+  width: clamp(65px, 10vw, 105px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(83,55,37,.65);
+  border-radius: 50%;
+  color: #65452d;
+  background: rgba(237,216,169,.24);
+  box-shadow: 0 2px 8px rgba(70,45,25,.15);
+}
+
+.fantasy-compass::before,
+.fantasy-compass::after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 82%;
+  background: rgba(91,59,39,.65);
+}
+
+.fantasy-compass::after {
+  transform: rotate(90deg);
+}
+
+.fantasy-compass-rose {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(2rem, 5vw, 3.7rem);
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(255,240,200,.7);
+}
+
+.fantasy-compass-label {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Playfair Display', serif;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+}
+
+/* Berge */
+
+.fantasy-mountains {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.fantasy-mountain {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: var(--mountain-width, 70px) solid transparent;
+  border-right: var(--mountain-width, 70px) solid transparent;
+  border-bottom: var(--mountain-height, 110px) solid #80664e;
+  filter: drop-shadow(3px 4px 2px rgba(67,45,34,.22));
+}
+
+.fantasy-mountain::after {
+  content: '';
+  position: absolute;
+  left: calc(var(--mountain-width, 70px) * -.42);
+  top: 13px;
+  width: 0;
+  height: 0;
+  border-left: calc(var(--mountain-width, 70px) * .42) solid transparent;
+  border-right: calc(var(--mountain-width, 70px) * .42) solid transparent;
+  border-bottom: calc(var(--mountain-height, 110px) * .42) solid #e9dfc2;
+}
+
+.fantasy-mountain.one {
+  --mountain-width: 66px;
+  --mountain-height: 110px;
+  left: 8%;
+  top: 27%;
+}
+
+.fantasy-mountain.two {
+  --mountain-width: 90px;
+  --mountain-height: 145px;
+  left: 17%;
+  top: 21%;
+  opacity: .9;
+}
+
+.fantasy-mountain.three {
+  --mountain-width: 58px;
+  --mountain-height: 95px;
+  left: 30%;
+  top: 27%;
+  opacity: .82;
+}
+
+.fantasy-mountain.four {
+  --mountain-width: 74px;
+  --mountain-height: 120px;
+  right: 13%;
+  top: 32%;
+  opacity: .85;
+}
+
+/* Wälder */
+
+.fantasy-forest {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  pointer-events: none;
+}
+
+.fantasy-tree {
+  position: relative;
+  width: 0;
+  height: 0;
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+  border-bottom: 43px solid #586345;
+  filter: drop-shadow(2px 3px 1px rgba(57,46,31,.2));
+}
+
+.fantasy-tree::before {
+  content: '';
+  position: absolute;
+  left: -9px;
+  top: 12px;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 30px solid #718052;
+}
+
+.fantasy-tree::after {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: 37px;
+  width: 4px;
+  height: 9px;
+  background: #705039;
+}
+
+.fantasy-forest.north {
+  left: 7%;
+  top: 49%;
+  transform: rotate(-5deg) scale(.9);
+}
+
+.fantasy-forest.south {
+  right: 9%;
+  bottom: 12%;
+  transform: rotate(5deg) scale(1.05);
+}
+
+.fantasy-forest.west {
+  left: 12%;
+  bottom: 17%;
+  transform: scale(.75);
+}
+
+/* Burg und Dörfer */
+
+.fantasy-castle {
+  position: absolute;
+  z-index: 2;
+  left: 48%;
+  top: 31%;
+  width: 105px;
+  height: 95px;
+  transform: translateX(-50%);
+  color: #72543a;
+  filter: drop-shadow(3px 4px 2px rgba(66,43,29,.2));
+  pointer-events: none;
+}
+
+.fantasy-castle-main {
+  position: absolute;
+  left: 25px;
+  bottom: 0;
+  width: 58px;
+  height: 55px;
+  border: 2px solid #73553c;
+  background: #c3a477;
+}
+
+.fantasy-castle-main::before {
+  content: '';
+  position: absolute;
+  left: 17px;
+  bottom: 0;
+  width: 17px;
+  height: 30px;
+  border: 2px solid #73553c;
+  border-bottom: 0;
+  border-radius: 10px 10px 0 0;
+  background: #79543a;
+}
+
+.fantasy-castle-tower {
+  position: absolute;
+  bottom: 42px;
+  width: 25px;
+  height: 47px;
+  border: 2px solid #73553c;
+  background: #d0b487;
+}
+
+.fantasy-castle-tower.left {
+  left: 13px;
+}
+
+.fantasy-castle-tower.right {
+  right: 13px;
+}
+
+.fantasy-castle-tower::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: -18px;
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-bottom: 20px solid #76543d;
+}
+
+.fantasy-castle-flag {
+  position: absolute;
+  top: -16px;
+  left: 11px;
+  width: 12px;
+  height: 16px;
+  background: #a34d67;
+  clip-path: polygon(0 0,100% 0,100% 75%,50% 55%,0 100%);
+}
+
+.fantasy-village {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.fantasy-house {
+  position: relative;
+  width: 28px;
+  height: 25px;
+  border: 1px solid #74533a;
+  background: #c39d6e;
+  box-shadow: 2px 3px 2px rgba(61,43,30,.15);
+}
+
+.fantasy-house::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: -13px;
+  width: 36px;
+  height: 16px;
+  background: #79533c;
+  clip-path: polygon(50% 0,100% 100%,0 100%);
+}
+
+.fantasy-house::after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  bottom: 0;
+  width: 7px;
+  height: 13px;
+  background: #704c36;
+}
+
+.fantasy-village.one {
+  left: 53%;
+  top: 57%;
+  transform: scale(.85);
+}
+
+.fantasy-village.two {
+  left: 22%;
+  bottom: 13%;
+  transform: scale(.75);
+}
+
+/* Fluss und Landschaftslinien */
+
+.fantasy-river {
+  position: absolute;
+  z-index: 1;
+  left: 2%;
+  bottom: 24%;
+  width: 60%;
+  height: 80px;
+  border-top: 7px solid rgba(84,111,111,.68);
+  border-radius: 50%;
+  transform: rotate(-17deg);
+  filter: drop-shadow(0 2px 1px rgba(255,244,208,.45));
+  pointer-events: none;
+}
+
+.fantasy-river::before {
+  content: '';
+  position: absolute;
+  left: 5%;
+  top: 8px;
+  width: 100%;
+  height: 34px;
+  border-top: 3px solid rgba(111,139,133,.55);
+  border-radius: 50%;
+}
+
+.fantasy-coast {
+  position: absolute;
+  right: -8%;
+  bottom: -10%;
+  width: 45%;
+  height: 43%;
+  border-radius: 65% 0 0 0;
+  background:
+    repeating-linear-gradient(
+      165deg,
+      rgba(82,117,124,.24) 0 2px,
+      transparent 2px 10px
+    ),
+    linear-gradient(145deg, #829b91, #637f83);
+  border-top: 4px solid rgba(91,74,52,.45);
+  transform: rotate(-5deg);
+  pointer-events: none;
+}
+
+.fantasy-coast::after {
+  content: '≈  ≈  ≈';
+  position: absolute;
+  left: 25%;
+  top: 25%;
+  color: rgba(238,231,197,.7);
+  font-size: 1.5rem;
+  letter-spacing: .4em;
+}
+
+/* Beschriftungen */
+
+.fantasy-map-label {
+  position: absolute;
+  z-index: 2;
+  color: rgba(83,57,39,.85);
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(.72rem, 1.4vw, 1rem);
+  font-style: italic;
+  letter-spacing: .08em;
+  text-shadow: 0 1px 0 rgba(255,240,205,.55);
+  pointer-events: none;
+}
+
+.fantasy-map-label.mountains-label {
+  top: 19%;
+  left: 8%;
+  transform: rotate(-9deg);
+}
+
+.fantasy-map-label.forest-label {
+  top: 57%;
+  left: 8%;
+  transform: rotate(-12deg);
+}
+
+.fantasy-map-label.kingdom-label {
+  top: 46%;
+  left: 43%;
+  font-size: clamp(.9rem, 1.7vw, 1.2rem);
+}
+
+.fantasy-map-label.coast-label {
+  right: 8%;
+  bottom: 10%;
+  transform: rotate(-12deg);
+}
+
+/* Dekorative Symbole */
+
+.fantasy-map-decoration {
+  position: absolute;
+  z-index: 2;
+  color: rgba(99,67,43,.7);
+  font-family: 'Playfair Display', serif;
+  pointer-events: none;
+}
+
+.fantasy-map-decoration.star-one {
+  top: 30%;
+  right: 29%;
+  font-size: 25px;
+}
+
+.fantasy-map-decoration.star-two {
+  left: 40%;
+  bottom: 14%;
+  font-size: 20px;
+}
+
+.fantasy-map-decoration.star-three {
+  right: 17%;
+  top: 58%;
+  font-size: 17px;
+}
+
+/* Magische Route */
+
+.fantasy-map-route {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.fantasy-map-route path {
+  fill: none;
+  stroke: #9c4e83;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 3 10;
+  filter: drop-shadow(0 0 3px rgba(255,224,244,.9));
+  animation: fantasyRouteFlow 18s linear infinite;
+}
+
+@keyframes fantasyRouteFlow {
+  to {
+    stroke-dashoffset: -130;
+  }
+}
+
+/* Herz-Marker */
+
+.fantasy-map-pin {
+  position: absolute;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.map-pin-glow {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(226,91,160,.3);
+  filter: blur(12px);
+  transform: translateX(-50%);
+  opacity: .65;
+  transition: opacity .25s ease, transform .25s ease;
+  pointer-events: none;
+}
+
+.map-pin-heart {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 43px;
+  border: 2px solid rgba(255,244,226,.95);
+  border-radius: 50% 50% 50% 8px;
+  color: #fff7f5;
+  background: linear-gradient(145deg, #e98bc3, #a75cae 75%);
+  box-shadow:
+    0 4px 14px rgba(95,42,74,.35),
+    0 0 18px rgba(230,137,197,.48);
+  transform: rotate(-45deg);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.map-pin-heart > span {
+  display: block;
+  font-size: 22px;
+  line-height: 1;
+  transform: rotate(45deg);
+  text-shadow: 0 1px 4px rgba(80,30,60,.3);
+}
+
+.map-pin-label {
+  display: block;
+  max-width: 120px;
+  padding: 4px 9px;
+  border: 1px solid rgba(111,75,53,.35);
+  border-radius: 999px;
+  color: #593d2b;
+  background: rgba(250,232,194,.9);
+  box-shadow: 0 2px 7px rgba(61,40,25,.2);
+  font-family: 'Playfair Display', serif;
+  font-size: .78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  text-shadow: 0 1px rgba(255,255,255,.35);
+}
+
+.fantasy-map-pin:hover .map-pin-heart,
+.fantasy-map-pin:focus-visible .map-pin-heart,
+.fantasy-map-pin.active .map-pin-heart {
+  transform: rotate(-45deg) scale(1.16);
+  box-shadow:
+    0 5px 18px rgba(95,42,74,.42),
+    0 0 25px rgba(255,165,222,.8);
+}
+
+.fantasy-map-pin:hover .map-pin-glow,
+.fantasy-map-pin:focus-visible .map-pin-glow,
+.fantasy-map-pin.active .map-pin-glow {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.35);
+}
+
+.fantasy-map-pin:focus-visible {
+  outline: 2px solid #fff0fa;
+  outline-offset: 7px;
+  border-radius: 12px;
+}
+
+.fantasy-map-pin.active .map-pin-label {
+  border-color: rgba(143,65,112,.7);
+  background: #fff0d5;
+  box-shadow: 0 0 13px rgba(255,229,194,.75);
+}
+
+/* Ausgewählte Erinnerung auf der Karte */
+
+.map-memory-detail {
+  position: absolute;
+  z-index: 8;
+  left: 50%;
+  bottom: 25px;
+  width: min(440px, calc(100% - 70px));
+  padding: 15px 19px;
+  border: 1px solid rgba(255,232,196,.6);
+  border-radius: 16px;
+  color: #fff3e1;
+  background: rgba(48,34,35,.92);
+  box-shadow: 0 10px 28px rgba(45,28,24,.35);
+  text-align: left;
+  transform: translateX(-50%);
+  backdrop-filter: blur(8px);
+}
+
+.map-detail-topline {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 5px;
+}
+
+.map-detail-symbol {
+  font-size: 1.25rem;
+}
+
+.map-detail-country {
+  color: #e2c6a4;
+  font-size: .68rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+.map-memory-detail h3 {
+  margin: 0 0 4px;
+  color: #ffe0c3;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.map-memory-detail time,
+.map-detail-date {
+  display: block;
+  margin-bottom: 7px;
+  color: #e8b9d9;
+  font-size: .75rem;
+}
+
+.map-memory-detail p {
+  margin: 0;
+  color: #f0e2d7;
+  font-size: .82rem;
   line-height: 1.55;
 }
 
-.map-popup-title {
-  margin-bottom: 4px;
-  color: #f5bde4;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.08rem;
-}
-
-.map-popup-date {
-  margin-bottom: 6px;
-  color: #c8b9ff;
-  font-size: .78rem;
-}
-
-.map-popup-text {
-  color: #eaddec;
-  font-size: .86rem;
-}
-
-.our-map-pin {
-  display: grid;
-  width: 38px;
-  height: 38px;
-  place-items: center;
-  border: 1px solid rgba(255, 230, 255, .9);
-  border-radius: 50% 50% 50% 8px;
-  color: white;
-  background: linear-gradient(145deg, #e58bc9, #8e6ad1);
-  box-shadow: 0 4px 18px rgba(217, 124, 197, .5);
-  font-size: 19px;
-  transform: rotate(-45deg);
-}
-
-.our-map-pin span {
-  transform: rotate(45deg);
-}
+/* Erinnerungskarten unter der Karte */
 
 .map-memories {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   gap: 14px;
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 20px auto 0;
   text-align: left;
 }
 
 .map-memory-card {
-  padding: 19px;
+  padding: 0;
+  overflow: hidden;
   border: 1px solid rgba(226, 174, 224, .17);
   border-radius: 18px;
   background: rgba(43, 28, 65, .72);
-  transition: transform .25s ease, border-color .25s ease, background .25s ease;
-}
-
-.map-memory-card:hover,
-.map-memory-card:focus-visible {
-  border-color: rgba(242, 183, 223, .55);
-  background: rgba(55, 35, 76, .9);
-  transform: translateY(-3px);
+  transition:
+    transform .25s ease,
+    border-color .25s ease,
+    background .25s ease,
+    box-shadow .25s ease;
 }
 
 .map-memory-card button {
   display: block;
   width: 100%;
-  padding: 0;
+  height: 100%;
+  padding: 19px;
   border: 0;
   color: inherit;
   background: transparent;
   text-align: left;
   cursor: pointer;
+}
+
+.map-memory-card:hover,
+.map-memory-card:focus-within,
+.map-memory-card.active {
+  border-color: rgba(242, 183, 223, .6);
+  background: rgba(55, 35, 76, .94);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0,0,0,.17);
 }
 
 .map-memory-country {
@@ -2088,23 +2555,304 @@ body.secret-letter-open {
 }
 
 .map-note {
-  margin-top: 22px;
+  max-width: 1000px;
+  margin: 22px auto 0;
+  color: #c0accb;
   font-family: 'Playfair Display', serif;
+  font-size: .92rem;
   font-style: italic;
+  line-height: 1.6;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media (max-height: 760px) {
+  .intro-content {
+    transform: scale(.84);
+    padding: 8px 0;
+  }
+
+  .couple-wrap {
+    width: min(78vw, 310px);
+    margin-top: -10px;
+  }
+
+  .intro-message h1 {
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+  }
+
+  .enter-button {
+    margin-top: 15px;
+  }
 }
 
 @media (max-width: 600px) {
+  .love-sky {
+    min-height: 380px;
+    border-radius: 22px;
+  }
+
+  .memory-star {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+
+  .heart-constellation {
+    transform: translate(-50%,-50%) scale(.8);
+  }
+
+  .heart-constellation.revealed {
+    transform: translate(-50%,-50%) scale(.8);
+  }
+
+  .sky-memory-message {
+    padding: 17px 16px;
+    gap: 10px;
+  }
+
+  .sky-memory-message p {
+    font-size: .92rem;
+  }
+
+  .anniversary-counter {
+    gap: 10px;
+  }
+
+  .anniversary-unit {
+    width: calc(50% - 10px);
+    min-height: 96px;
+  }
+
   .our-map-card {
     padding: 11px;
     border-radius: 19px;
   }
 
-  .our-map {
-    height: 360px;
+  .our-map-heading {
+    align-items: flex-start;
+  }
+
+  .our-map.fantasy-map {
+    min-height: 560px;
     border-radius: 13px;
   }
 
-  .our-map-heading {
-    align-items: flex-start;
+  .fantasy-map-border {
+    inset: 8px;
+  }
+
+  .fantasy-map-title {
+    top: 5%;
+    width: 62%;
+  }
+
+  .fantasy-map-title h3 {
+    font-size: 1.1rem;
+  }
+
+  .fantasy-compass {
+    top: 8%;
+    right: 7%;
+    width: 58px;
+  }
+
+  .fantasy-map-label {
+    font-size: .65rem;
+  }
+
+  .fantasy-castle {
+    transform: translateX(-50%) scale(.75);
+    transform-origin: top center;
+  }
+
+  .map-pin-heart {
+    width: 37px;
+    height: 37px;
+  }
+
+  .map-pin-heart > span {
+    font-size: 19px;
+  }
+
+  .map-pin-label {
+    max-width: 100px;
+    padding: 3px 7px;
+    font-size: .68rem;
+  }
+
+  .map-memory-detail {
+    bottom: 17px;
+    width: calc(100% - 40px);
+    padding: 12px 14px;
+  }
+
+  .map-memory-detail h3 {
+    font-size: 1.1rem;
+  }
+
+  .map-memory-detail p {
+    font-size: .76rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .music-volume-control {
+    right: 12px;
+    bottom: 70px;
+    width: min(230px, calc(100vw - 24px));
+  }
+
+  .playlist-toggle {
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .music-button {
+    right: 118px !important;
+    bottom: 12px !important;
+  }
+
+  .playlist-panel {
+    right: 12px;
+    bottom: 126px;
+    width: calc(100vw - 24px);
+  }
+
+  .footer-bottom {
+    gap: 10px;
+  }
+
+  .secret-envelope-trigger {
+    width: 44px;
+    height: 44px;
+  }
+
+  .secret-letter-modal {
+    padding: 10px;
+  }
+
+  .secret-letter-dialog {
+    max-height: 91dvh;
+    padding: 25px 20px;
+    border-radius: 22px;
+  }
+
+  .secret-letter-close {
+    margin: -10px -8px 0 8px;
+  }
+
+  .intro-content {
+    width: calc(100% - 24px);
+  }
+
+  .couple-wrap {
+    width: min(100%, 315px);
+  }
+
+  .intro-message p {
+    font-size: .8rem;
+  }
+
+  .enter-button {
+    padding: 12px 16px;
+    font-size: .87rem;
+  }
+
+  .section-shell {
+    padding: 66px 18px;
+  }
+
+  .hero {
+    min-height: 500px;
+  }
+
+  .counter-unit {
+    width: calc(50% - 8px);
+    min-height: 92px;
+  }
+
+  .counter-unit strong {
+    font-size: 1.8rem;
+  }
+
+  .memory-card {
+    margin-left: 42px;
+    padding: 19px 17px;
+  }
+
+  .timeline-list::before {
+    left: 14px;
+  }
+
+  .memory-card::before {
+    left: -36px;
+    width: 25px;
+    height: 25px;
+  }
+
+  .our-map.fantasy-map {
+    min-height: 500px;
+  }
+
+  .fantasy-map-title h3 {
+    font-size: .9rem;
+  }
+
+  .fantasy-map-title p {
+    font-size: .58rem;
+  }
+
+  .fantasy-map-border {
+    inset: 6px;
+  }
+
+  .fantasy-mountain.two {
+    --mountain-width: 62px;
+    --mountain-height: 105px;
+  }
+
+  .fantasy-map-pin {
+    gap: 3px;
+  }
+
+  .map-pin-label {
+    font-size: .62rem;
+  }
+
+  .map-memory-card button {
+    padding: 16px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION / BARRIEREFREIHEIT
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+
+  .anniversary-unit {
+    transition: none;
+  }
+
+  .anniversary-unit:hover {
+    transform: none;
+  }
+
+  .love-nebula,
+  .sky-ambient-star,
+  .memory-star,
+  .heart-constellation.revealed {
+    animation: none !important;
   }
 }
