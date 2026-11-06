@@ -7,12 +7,6 @@
   <meta name="theme-color" content="#100b27">
   <title>Our Love Story ♡</title>
   <link rel="stylesheet" href="style.css">
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""
-  >
 </head>
 <body>
 
@@ -97,6 +91,7 @@
         <span id="musicIcon">♫</span>
         <span id="musicLabel">Musik an</span>
       </button>
+
       <div class="music-volume-control">
         <label for="musicVolume">Lautstärke <span id="musicVolumeValue">50%</span></label>
         <input
@@ -123,15 +118,22 @@
           </div>
           <button id="playlistClose" class="playlist-close" type="button" aria-label="Playlist schließen">×</button>
         </div>
+
         <p id="currentTrackLabel" class="current-track-label">Noch kein Lied ausgewählt</p>
+
         <div class="playlist-controls">
           <button id="previousTrack" type="button" aria-label="Vorheriges Lied">⏮</button>
           <button id="playlistPlayPause" class="playlist-play-pause" type="button" aria-label="Musik abspielen">▶</button>
           <button id="nextTrack" type="button" aria-label="Nächstes Lied">⏭</button>
         </div>
+
         <p class="playlist-list-heading">Lieder</p>
         <ol id="playlistTracks" class="playlist-tracks"></ol>
-        <p class="playlist-help">Deine MP3-Dateien kommen in <code>assets/music/</code>. Weitere Titel kannst du in der Playlist-Liste in <code>script.js</code> eintragen.</p>
+
+        <p class="playlist-help">
+          Deine MP3-Dateien kommen in <code>assets/music/</code>.
+          Weitere Titel kannst du in der Playlist-Liste in <code>script.js</code> eintragen.
+        </p>
       </section>
     </header>
 
@@ -164,17 +166,14 @@
           <strong id="days">0</strong>
           <span>Tage</span>
         </div>
-
         <div class="counter-unit">
           <strong id="hours">00</strong>
           <span>Stunden</span>
         </div>
-
         <div class="counter-unit">
           <strong id="minutes">00</strong>
           <span>Minuten</span>
         </div>
-
         <div class="counter-unit">
           <strong id="seconds">00</strong>
           <span>Sekunden</span>
@@ -189,30 +188,25 @@
     <!-- COUNTDOWN BIS ZUM NÄCHSTEN JUBILÄUM -->
     <section id="anniversaryCountdown" class="anniversary-section section-shell">
       <p class="eyebrow">EIN WEITERES KAPITEL VON UNS</p>
-
       <h2>Bis zu unserem nächsten <span>Jahrestag</span></h2>
 
       <p id="anniversaryDate" class="anniversary-date">
         Unser nächster besonderer Tag ♡
       </p>
 
-      <div class="anniversary-counter"
-           aria-label="Countdown bis zu unserem nächsten Jahrestag">
+      <div class="anniversary-counter" aria-label="Countdown bis zu unserem nächsten Jahrestag">
         <div class="anniversary-unit">
           <strong id="anniversaryDays">0</strong>
           <span>Tage</span>
         </div>
-
         <div class="anniversary-unit">
           <strong id="anniversaryHours">00</strong>
           <span>Stunden</span>
         </div>
-
         <div class="anniversary-unit">
           <strong id="anniversaryMinutes">00</strong>
           <span>Minuten</span>
         </div>
-
         <div class="anniversary-unit">
           <strong id="anniversarySeconds">00</strong>
           <span>Sekunden</span>
@@ -235,10 +229,11 @@
       <div id="timelineList" class="timeline-list"></div>
     </section>
 
-    <!-- UNSERE GEMEINSAME LANDKARTE -->
+    <!-- UNSERE GEMEINSAME FANTASY-LANDKARTE -->
     <section id="ourMapSection" class="our-map-section section-shell">
       <p class="eyebrow">ORTE, DIE ZU UNS GEHÖREN</p>
       <h2>Unsere gemeinsame <span>Landkarte</span></h2>
+
       <p class="section-intro">
         Manche Orte sind mehr als nur Punkte auf einer Karte. Sie erinnern uns an
         Augenblicke, die für immer zu unserer Geschichte gehören. ♡
@@ -249,23 +244,24 @@
           <span class="map-heading-icon" aria-hidden="true">♡</span>
           <div>
             <h3>Unsere kleinen und großen Abenteuer</h3>
-            <p>Tippe auf ein Herz, um die Erinnerung zu öffnen.</p>
+            <p>Tippe auf ein leuchtendes Herz, um die Erinnerung zu öffnen.</p>
           </div>
         </div>
+
+        <!-- Die Fantasy-Karte wird durch script.js gezeichnet -->
         <div
           id="ourMap"
           class="our-map"
           role="region"
-          aria-label="Interaktive Karte mit unseren gemeinsamen Orten"
+          aria-label="Illustrierte Fantasy-Landkarte mit unseren gemeinsamen Erinnerungsorten"
         ></div>
-        <p class="map-attribution">
-          Kartendaten © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>
-          · Darstellung mit <a href="https://leafletjs.com/" target="_blank" rel="noopener noreferrer">Leaflet</a>
-        </p>
       </div>
 
       <div id="mapMemories" class="map-memories" aria-live="polite"></div>
-      <p class="map-note">Und irgendwann kommen noch ganz viele weitere Herzen dazu. ♡</p>
+
+      <p class="map-note">
+        Und irgendwann kommen noch ganz viele weitere Herzen dazu. ♡
+      </p>
     </section>
 
     <!-- ROMANTISCHER STERNENHIMMEL -->
@@ -449,7 +445,6 @@
     <source src="assets/music.mp3" type="audio/mpeg">
   </audio>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="script.js"></script>
 </body>
 </html>
