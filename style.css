@@ -2856,3 +2856,477 @@ body.secret-letter-open {
     animation: none !important;
   }
 }
+
+/* =========================================
+   OUR LOVE STORY – MAGISCHE FANTASY-KARTE
+   Ersetzt die alte Leaflet-Kartenoptik
+========================================= */
+
+.our-map-card {
+  max-width: 1000px;
+  padding: 18px;
+  overflow: hidden;
+}
+
+.our-map {
+  position: relative !important;
+  isolation: isolate;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 620px;
+  overflow: hidden !important;
+  border: 1px solid rgba(255, 225, 177, .45) !important;
+  border-radius: 18px !important;
+  background:
+    radial-gradient(ellipse at 50% 45%, #f5dfae 0%, #e6c994 65%, #c6a575 100%) !important;
+  box-shadow:
+    inset 0 0 35px rgba(105, 65, 35, .2),
+    0 12px 35px rgba(0, 0, 0, .2);
+}
+
+/* Alte Leaflet-Elemente ausblenden */
+.our-map .leaflet-pane,
+.our-map .leaflet-control-container {
+  display: none !important;
+}
+
+/* Papierfläche */
+.our-map .fantasy-map-art {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  color: #654b38;
+  font-family: 'Playfair Display', serif;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(255, 239, 197, .35), transparent 70%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(111, 76, 43, .025) 0,
+      rgba(111, 76, 43, .025) 1px,
+      transparent 1px,
+      transparent 5px
+    );
+}
+
+.our-map .fantasy-map-paper {
+  position: absolute;
+  inset: 12px;
+  border: 2px solid rgba(111, 75, 43, .55);
+  border-radius: 5px;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 25px rgba(112, 74, 38, .13),
+    0 0 0 5px rgba(255, 237, 196, .12);
+}
+
+.our-map .fantasy-map-grain {
+  position: absolute;
+  inset: 0;
+  opacity: .24;
+  pointer-events: none;
+  background-image:
+    radial-gradient(rgba(100, 67, 39, .3) .7px, transparent .8px);
+  background-size: 7px 7px;
+}
+
+.our-map .fantasy-map-border {
+  position: absolute;
+  inset: 20px;
+  border: 1px solid rgba(111, 75, 43, .3);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* Kartentitel */
+.our-map .fantasy-map-title {
+  position: absolute;
+  z-index: 2;
+  top: 28px;
+  left: 50%;
+  width: 80%;
+  transform: translateX(-50%);
+  color: #70533d;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(15px, 2vw, 21px);
+  text-align: center;
+  letter-spacing: .08em;
+  text-shadow: 0 1px rgba(255, 244, 214, .8);
+}
+
+/* Kompass */
+.our-map .fantasy-map-compass {
+  position: absolute;
+  top: 35px;
+  left: 35px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 75px;
+  height: 75px;
+  border: 1px solid rgba(111, 75, 43, .5);
+  border-radius: 50%;
+  color: #795b40;
+  font-family: Georgia, serif;
+  font-size: 34px;
+  text-shadow: 0 1px 2px rgba(255, 245, 215, .8);
+}
+
+.our-map .fantasy-map-compass::after {
+  content: "N";
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .15em;
+}
+
+/* Landschaft */
+.our-map .fantasy-map-mountains {
+  position: absolute;
+  top: 16%;
+  left: 4%;
+  width: 42%;
+  height: 28%;
+  opacity: .72;
+  background:
+    linear-gradient(135deg, transparent 48%, #a88b68 49% 53%, transparent 54%) 0 0 / 34% 100%,
+    linear-gradient(45deg, transparent 45%, #c1a17a 46% 53%, transparent 54%) 10% 10% / 38% 90%;
+  background-repeat: no-repeat;
+}
+
+.our-map .fantasy-map-forest {
+  position: absolute;
+  width: 30%;
+  height: 28%;
+  color: #71805a;
+  opacity: .65;
+  font-size: 24px;
+  letter-spacing: 7px;
+  line-height: 1.7;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.our-map .fantasy-map-forest::before {
+  content: "♠  ♠  ♠\A ♠  ♠  ♠  ♠\A  ♠  ♠  ♠";
+  white-space: pre;
+}
+
+.our-map .fantasy-map-forest-one {
+  left: 4%;
+  bottom: 9%;
+}
+
+.our-map .fantasy-map-forest-two {
+  right: 5%;
+  top: 36%;
+  transform: rotate(12deg);
+}
+
+.our-map .fantasy-map-river {
+  position: absolute;
+  top: 32%;
+  left: 35%;
+  width: 40%;
+  height: 48%;
+  border: 5px solid rgba(111, 151, 158, .5);
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-radius: 45% 30% 55% 25%;
+  transform: rotate(-25deg);
+  filter: drop-shadow(0 1px 1px rgba(255,255,255,.5));
+  pointer-events: none;
+}
+
+.our-map .fantasy-map-castle {
+  position: absolute;
+  top: 23%;
+  right: 15%;
+  color: #8d6d50;
+  font-size: 42px;
+  opacity: .75;
+  filter: drop-shadow(0 2px 2px rgba(80, 50, 30, .2));
+}
+
+.our-map .fantasy-map-village {
+  position: absolute;
+  color: #8c6848;
+  font-size: 27px;
+  opacity: .8;
+}
+
+.our-map .fantasy-map-label {
+  position: absolute;
+  z-index: 2;
+  color: rgba(91, 66, 47, .85);
+  font-family: 'Playfair Display', serif;
+  font-size: 12px;
+  font-style: italic;
+  letter-spacing: .04em;
+  pointer-events: none;
+}
+
+.our-map .fantasy-map-decoration {
+  position: absolute;
+  color: rgba(124, 91, 57, .55);
+  font-size: 18px;
+  pointer-events: none;
+}
+
+/* Magische Reiseroute */
+.our-map .fantasy-map-route {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.our-map .fantasy-map-route path {
+  fill: none;
+  stroke: rgba(174, 91, 143, .8);
+  stroke-width: 2.5;
+  stroke-dasharray: 7 8;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 3px rgba(255, 226, 244, .8));
+}
+
+/* Kartenmarker */
+.our-map .fantasy-map-pin {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: filter .25s ease, scale .25s ease;
+}
+
+.our-map .fantasy-map-pin:hover,
+.our-map .fantasy-map-pin:focus-visible,
+.our-map .fantasy-map-pin.active {
+  z-index: 8;
+  scale: 1.13;
+  outline: none;
+  filter: brightness(1.12);
+}
+
+.our-map .fantasy-map-pin:focus-visible .map-pin-heart {
+  outline: 3px solid #fff;
+  outline-offset: 4px;
+}
+
+.our-map .map-pin-glow {
+  position: absolute;
+  top: -10px;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background: rgba(224, 105, 187, .3);
+  filter: blur(13px);
+  animation: fantasyPinGlow 2.5s ease-in-out infinite alternate;
+}
+
+.our-map .map-pin-heart {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 43px;
+  border: 2px solid rgba(255, 239, 255, .95);
+  border-radius: 50% 50% 50% 8px;
+  color: white;
+  background: linear-gradient(145deg, #e58bc9, #9564bd);
+  box-shadow:
+    0 4px 15px rgba(133, 65, 131, .4),
+    0 0 15px rgba(226, 133, 211, .55);
+  transform: rotate(-45deg);
+}
+
+.our-map .map-pin-heart span {
+  display: block;
+  transform: rotate(45deg);
+  font-size: 19px;
+}
+
+.our-map .map-pin-label {
+  position: relative;
+  padding: 4px 9px;
+  border: 1px solid rgba(123, 83, 53, .3);
+  border-radius: 999px;
+  color: #60452f;
+  background: rgba(255, 240, 207, .96);
+  box-shadow: 0 2px 6px rgba(80, 50, 30, .15);
+  font-family: 'Playfair Display', serif;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+@keyframes fantasyPinGlow {
+  from {
+    opacity: .45;
+    transform: scale(.85);
+  }
+  to {
+    opacity: .9;
+    transform: scale(1.15);
+  }
+}
+
+/* Ausgewählte Erinnerung */
+.our-map .map-memory-detail {
+  position: absolute;
+  z-index: 7;
+  right: 7%;
+  bottom: 22px;
+  width: min(390px, 48%);
+  padding: 17px 19px;
+  border: 1px solid rgba(255, 218, 238, .3);
+  border-radius: 17px;
+  color: #f8eafa;
+  background: rgba(43, 29, 38, .96);
+  box-shadow: 0 9px 28px rgba(60, 35, 30, .28);
+  text-align: left;
+}
+
+.our-map .map-detail-symbol {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 19px;
+}
+
+.our-map .map-detail-country {
+  margin: 0 0 4px;
+  color: #d5a7c7;
+  font-size: 10px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.our-map .map-memory-detail h3 {
+  margin: 0 0 4px;
+  color: #f5bde4;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.our-map .map-detail-date {
+  margin: 0 0 7px;
+  color: #d8c3d4;
+  font-size: 11px;
+}
+
+.our-map .map-detail-description {
+  margin: 0;
+  color: #f0e2eb;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* Erinnerungskarten unter der Karte */
+.map-memory-card {
+  border: 1px solid rgba(226, 174, 224, .2);
+  border-radius: 18px;
+  background: rgba(43, 28, 65, .82);
+  transition: border-color .25s ease, transform .25s ease, background .25s ease;
+}
+
+.map-memory-card.active {
+  border-color: rgba(242, 183, 223, .8);
+  background: rgba(74, 43, 85, .95);
+  box-shadow: 0 0 22px rgba(217, 124, 197, .12);
+}
+
+.map-memory-card button {
+  min-height: 100%;
+}
+
+.map-memory-card button:focus-visible {
+  outline: 2px solid #f2b7df;
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+/* Mobile */
+@media (max-width: 650px) {
+  .our-map {
+    min-height: 540px;
+  }
+
+  .our-map .fantasy-map-compass {
+    top: 28px;
+    left: 26px;
+    width: 55px;
+    height: 55px;
+    font-size: 25px;
+  }
+
+  .our-map .fantasy-map-title {
+    top: 30px;
+    left: 57%;
+    width: 65%;
+    font-size: 13px;
+  }
+
+  .our-map .map-memory-detail {
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    width: auto;
+    padding: 13px 15px;
+  }
+
+  .our-map .map-memory-detail h3 {
+    font-size: 18px;
+  }
+
+  .our-map .map-detail-description {
+    font-size: 11px;
+  }
+
+  .our-map .map-pin-heart {
+    width: 37px;
+    height: 37px;
+  }
+
+  .our-map .map-pin-label {
+    font-size: 10px;
+    padding: 3px 7px;
+  }
+
+  .our-map .fantasy-map-castle {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 380px) {
+  .our-map {
+    min-height: 500px;
+  }
+
+  .our-map .fantasy-map-title {
+    font-size: 11px;
+  }
+
+  .our-map .map-memory-detail {
+    bottom: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .our-map .map-pin-glow {
+    animation: none !important;
+  }
+}
