@@ -3330,3 +3330,45 @@ body.secret-letter-open {
     animation: none !important;
   }
 }
+
+* =========================================
+   FANTASY-KARTE – ans ENDE von style.css einfügen
+   (alle Klassen beginnen mit "olsmap", dadurch keine Kollisionen)
+========================================= */
+#ourMap.olsmap-host{all:initial;display:block;position:relative;width:100%;max-width:100%;color:inherit;font-family:inherit}
+#ourMap .olsmap-stage{position:relative;overflow:hidden;border-radius:14px;background:#07040f;box-shadow:0 0 50px rgba(160,90,255,.35)}
+#ourMap .olsmap-stage img{display:block;width:100%;height:auto}
+#ourMap .olsmap-stage svg{position:absolute;inset:0;width:100%;height:100%;overflow:hidden}
+#ourMap .olsmap-pin{cursor:pointer;outline:none}
+#ourMap .olsmap-pin-heart{transform-box:fill-box;transform-origin:center;transition:transform .25s}
+#ourMap .olsmap-pin:hover .olsmap-pin-heart,#ourMap .olsmap-pin:focus-visible .olsmap-pin-heart{transform:scale(1.25)}
+#ourMap .olsmap-pin.active .olsmap-pin-heart{transform:scale(1.6)}
+#ourMap .olsmap-pin-ring{fill:none;stroke:#ffb3ee;stroke-width:3;opacity:0;transform-box:fill-box;transform-origin:center}
+#ourMap .olsmap-pin.active .olsmap-pin-ring{opacity:1;animation:olsmapPulse 1.8s ease-out infinite}
+#ourMap .olsmap-pin:focus-visible .olsmap-pin-hit{stroke:#fff;stroke-width:3;stroke-dasharray:6}
+#ourMap .olsmap-pin-label{font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700;fill:#fff;stroke:#2a0f4d;stroke-width:7px;paint-order:stroke;letter-spacing:1px;pointer-events:none}
+#ourMap .olsmap-route{animation:olsmapDash 2.4s linear infinite}
+#ourMap .olsmap-spark{fill:#fff;animation:olsmapTwinkle 3s ease-in-out infinite}
+#ourMap .olsmap-aura{fill:rgba(220,120,255,.35);mix-blend-mode:screen;transform-box:fill-box;transform-origin:center;animation:olsmapAura 4s ease-in-out infinite}
+@keyframes olsmapPulse{0%{transform:scale(.7);opacity:.9}100%{transform:scale(2);opacity:0}}
+@keyframes olsmapDash{to{stroke-dashoffset:-34}}
+@keyframes olsmapTwinkle{0%,100%{opacity:.05}50%{opacity:.9}}
+@keyframes olsmapAura{0%,100%{opacity:.25;transform:scale(.9)}50%{opacity:.8;transform:scale(1.15)}}
+ 
+#ourMap .olsmap-detail{display:flex;gap:16px;align-items:flex-start;margin-top:16px;padding:18px 20px;border-radius:12px;background:linear-gradient(135deg,rgba(90,50,150,.45),rgba(40,20,80,.6));border:1px solid rgba(190,130,255,.4);box-shadow:0 0 24px rgba(160,90,255,.25);color:#f3e8ff;text-align:left}
+#ourMap .olsmap-detail.memory-detail-pop{animation:olsmapPop .45s ease}
+@keyframes olsmapPop{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
+#ourMap .olsmap-detail-icon{font-size:2.2rem;line-height:1}
+#ourMap .olsmap-detail-country{display:block;margin-bottom:2px;font-size:.85rem;color:#e8b7ff}
+#ourMap .olsmap-detail h3{margin:0 0 4px;font-size:1.4rem;color:#fff}
+#ourMap .olsmap-detail-date{margin:0 0 8px;color:#ffc2f2;font-size:.95rem}
+#ourMap .olsmap-detail-description{margin:0;line-height:1.6}
+ 
+@media (max-width:700px){
+  #ourMap .olsmap-pin-body{transform:scale(1.8)}
+  #ourMap .olsmap-detail{flex-direction:column;gap:8px}
+}
+@media (prefers-reduced-motion:reduce){
+  #ourMap .olsmap-route,#ourMap .olsmap-spark,#ourMap .olsmap-aura,#ourMap .olsmap-pin.active .olsmap-pin-ring,#ourMap .olsmap-detail.memory-detail-pop{animation:none}
+}
+ 
