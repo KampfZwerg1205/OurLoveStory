@@ -486,6 +486,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   createStars();
   renderTimeline();
+  renderMapMemories();
+  renderOurMap();
   updateCounter();
   updateAnniversaryCountdown();
 
@@ -891,3 +893,130 @@ function revealHiddenHeart() {
 ========================================= */
 
 document.addEventListener("DOMContentLoaded", createRomanticSky);
+
+
+/* =========================================
+   UNSERE GEMEINSAME LANDKARTE
+========================================= */
+
+// Ortsmittelpunkte als Orientierung – keine privaten Adressen.
+const sharedMapMemories = [
+  {
+    id: "mayen",
+    name: "Mayen",
+    country: "Deutschland",
+    date: "04. Juli 2025",
+    description: "Hier habt ihr euch zum ersten Mal persönlich getroffen. Der Ort, an dem aus eurer Online-Geschichte eine gemeinsame Erinnerung in echt wurde. ♡",
+    coordinates: [50.3279, 7.2228]
+  },
+  {
+    id: "koblenz",
+    name: "Koblenz",
+    country: "Deutschland",
+    date: "Juli 2025",
+    description: "Ein besonderer Ausflug mit ihrer Familie – ein weiterer schöner Teil eurer ersten gemeinsamen Zeit.",
+    coordinates: [50.3569, 7.5890]
+  },
+  {
+    id: "pornic",
+    name: "Pornic",
+    country: "Frankreich",
+    date: "08. – 25. Juli 2026",
+    description: "Euer gemeinsamer Urlaub an der französischen Atlantikküste. Eine ganze Zeit voller gemeinsamer Erlebnisse und Erinnerungen. 🇫🇷",
+    coordinates: [47.1150, -2.1020]
+  }
+];
+
+let sharedMapInstance = null;
+
+/* =========================================
+   KARTEN-ERINNERUNGEN ANZEIGEN
+========================================= */
+
+function renderMapMemories() {
+  const container = document.getElementById("mapMemories");
+  if (!container) return;
+
+  container.innerHTML = sharedMapMemories.map(memory => `
+    <article class="map-memory-card">
+      <button type="button" data-map-memory="${memory.id}" aria-label="${memory.name} auf der Karte anzeigen">
+        <span class="map-memory-country">${memory.country} · ♡</span>
+        <h3>${memory.name}</h3>
+        <p class="map-memory-date">${memory.date}</p>
+        <p class="map-memory-description">${memory.description}</p>
+      </button>
+    </article>
+  `).join("");
+
+  container.querySelectorAll("[data-map-memory]").forEach(button => {
+    button.addEventListener("click", () => {
+      const memory = sharedMapMemories.find(item => item.id === button.dataset.mapMemory);
+      if (!memory || !sharedMapInstance) return;
+
+      sharedMapInstance.flyTo(memory.coordinates, 9, { duration: 1.1 });
+      const marker = sharedMapInstance._sharedMemoryMarkers?.[memory.id];
+      marker?.openPopup();
+
+      document.getElementById("ourMap")?.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    });
+  });
+}
+
+/* =========================================
+   INTERAKTIVE KARTE INITIALISIEREN
+========================================= */
+
+function renderOurMap() {
+  const mapElement = document.getElementById("ourMap");
+  if (!mapElement) return;
+
+  if (!window.L) {
+    mapElement.innerHTML = '<p style="padding:24px;color:#f8eafa">Die Karte konnte gerade nicht geladen werden. Bitte prüfe deine Internetverbindung.</p>';
+    return;
+  }
+
+  if (sharedMapInstance) {
+    sharedMapInstance.invalidateSize();
+    return;
+  }
+
+  sharedMapInstance = L.map(mapElement, {
+    scrollWheelZoom: false
+  }).setView([49.0, 3.0], 5);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 18,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(sharedMapInstance);
+
+  sharedMapInstance._sharedMemoryMarkers = {};
+
+  sharedMapMemories.forEach(memory => {
+    const heartIcon = L.divIcon({
+      className: "",
+      html: '<div class="our-map-pin"><span>♡</span></div>',
+      iconSize: [38, 38],
+      iconAnchor: [19, 36],
+      popupAnchor: [0, -34]
+    });
+
+    const popup = `
+      <div class="map-popup-title">${memory.name} ♡</div>
+      <div class="map-popup-date">${memory.date}</div>
+      <div class="map-popup-text">${memory.description}</div>
+    `;
+
+    const marker = L.marker(memory.coordinates, { icon: heartIcon })
+      .addTo(sharedMapInstance)
+      .bindPopup(popup);
+
+    sharedMapInstance._sharedMemoryMarkers[memory.id] = marker;
+  });
+
+  const bounds = L.latLngBounds(sharedMapMemories.map(memory => memory.coordinates));
+  sharedMapInstance.fitBounds(bounds, { padding: [42, 42] });
+}
+
