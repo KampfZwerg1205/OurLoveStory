@@ -991,7 +991,7 @@ function renderMapMemories() {
   });
 }
 
-* =========================================
+/* =========================================
    FANTASY-KARTE (Bild + interaktive Herzen)
    Ersetzt in script.js alles von
    "FANTASY-KARTE: ILLUSTRATION ERSTELLEN" bis einschließlich
@@ -1156,40 +1156,6 @@ function renderOurMap() {
  
   mapElement.replaceChildren(createMapStage(), createMapDetail());
  
-  selectMapMemory(activeMapMemoryId);
-}
-
-/* =========================================
-   FANTASY-KARTE INITIALISIEREN
-========================================= */
-
-function renderOurMap() {
-  const mapElement = document.getElementById("ourMap");
-  if (!mapElement) return;
-
-  // Bereits erzeugte Karte nicht doppelt aufbauen.
-  if (mapElement.dataset.fantasyReady === "true") {
-    selectMapMemory(activeMapMemoryId);
-    return;
-  }
-
-  mapElement.dataset.fantasyReady = "true";
-  mapElement.classList.add("fantasy-map");
-
-  mapElement.replaceChildren();
-
-  const illustration = document.createElement("div");
-  illustration.innerHTML = createFantasyMapIllustration();
-
-  mapElement.append(
-    ...illustration.childNodes
-  );
-
-  renderFantasyMapPins(mapElement);
-
-  const detail = createMapDetail();
-  mapElement.append(detail);
-
   selectMapMemory(activeMapMemoryId);
 }
 
