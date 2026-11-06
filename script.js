@@ -39,7 +39,9 @@ const memories = [
   }
 ];
 
-/* Elemente der Webseite */
+/* =========================================
+   ELEMENTE DER WEBSEITE
+========================================= */
 
 const introScreen = document.getElementById("introScreen");
 const enterButton = document.getElementById("enterButton");
@@ -61,32 +63,33 @@ const previousTrackButton = document.getElementById("previousTrack");
 const nextTrackButton = document.getElementById("nextTrack");
 const playlistPlayPauseButton = document.getElementById("playlistPlayPause");
 
-// Füge weitere Lieder hinzu, indem du hier neue Einträge ergänzt.
-// Die MP3-Dateien selbst müssen im Repository unter assets/music/ liegen.
+/* =========================================
+   MUSIK-PLAYLIST
+========================================= */
+
 const musicPlaylist = [
   {
     title: "Shape of you",
     artist: "Für uns",
     src: "assets/music.mp3"
   },
-   {
+  {
     title: "Thats so True",
     artist: "Gracie Abrams",
     src: "assets/music/That’s So True.mp3"
   },
-   {
+  {
     title: "Ghost",
     artist: "Nightcore Zodiac",
     src: "assets/music/song-2.mp3"
-  },
-  // Beispiel für weitere Songs:
-  // ,{ title: "Unser Moment", artist: "Künstlername", src: "assets/music/song-2.mp3" }
+  }
 ];
 
 let currentTrackIndex = 0;
 
 if (backgroundMusic) {
   backgroundMusic.volume = 0.5;
+
   if (musicPlaylist.length > 0) {
     backgroundMusic.src = musicPlaylist[0].src;
   }
@@ -102,7 +105,10 @@ function updateMusicVolume() {
     musicVolumeValue.textContent = `${volume}%`;
   }
 
-  musicVolume.setAttribute("aria-valuetext", `${volume}% Lautstärke`);
+  musicVolume.setAttribute(
+    "aria-valuetext",
+    `${volume}% Lautstärke`
+  );
 }
 
 function renderPlaylist() {
@@ -119,12 +125,16 @@ function renderPlaylist() {
     button.type = "button";
     button.className = "playlist-track-button";
     button.classList.toggle("active", index === currentTrackIndex);
-    button.setAttribute("aria-current", index === currentTrackIndex ? "true" : "false");
+    button.setAttribute(
+      "aria-current",
+      index === currentTrackIndex ? "true" : "false"
+    );
 
     number.className = "playlist-track-number";
     number.textContent = String(index + 1).padStart(2, "0");
 
     title.textContent = track.title;
+
     button.append(number, title);
     button.addEventListener("click", () => selectTrack(index, true));
 
@@ -137,29 +147,42 @@ function renderPlaylist() {
 
 function updateCurrentTrackLabel() {
   if (!currentTrackLabel || musicPlaylist.length === 0) return;
+
   const track = musicPlaylist[currentTrackIndex];
   currentTrackLabel.textContent = `${track.title} · ${track.artist}`;
 }
 
 function updatePlaylistPlaybackState() {
-  const isPlaying = Boolean(backgroundMusic && !backgroundMusic.paused);
+  const isPlaying = Boolean(
+    backgroundMusic && !backgroundMusic.paused
+  );
 
   musicButton?.classList.toggle("playing", isPlaying);
   musicButton?.setAttribute("aria-pressed", String(isPlaying));
 
-  if (musicLabel) musicLabel.textContent = isPlaying ? "Musik aus" : "Musik an";
-  if (musicIcon) musicIcon.textContent = "♫";
+  if (musicLabel) {
+    musicLabel.textContent = isPlaying ? "Musik aus" : "Musik an";
+  }
+
+  if (musicIcon) {
+    musicIcon.textContent = "♫";
+  }
 
   if (playlistPlayPauseButton) {
     playlistPlayPauseButton.textContent = isPlaying ? "Ⅱ" : "▶";
-    playlistPlayPauseButton.setAttribute("aria-label", isPlaying ? "Musik pausieren" : "Musik abspielen");
+    playlistPlayPauseButton.setAttribute(
+      "aria-label",
+      isPlaying ? "Musik pausieren" : "Musik abspielen"
+    );
   }
 }
 
 async function selectTrack(index, autoplay = false) {
   if (!backgroundMusic || musicPlaylist.length === 0) return;
 
-  currentTrackIndex = (index + musicPlaylist.length) % musicPlaylist.length;
+  currentTrackIndex =
+    (index + musicPlaylist.length) % musicPlaylist.length;
+
   const track = musicPlaylist[currentTrackIndex];
 
   backgroundMusic.pause();
@@ -173,8 +196,14 @@ async function selectTrack(index, autoplay = false) {
     try {
       await backgroundMusic.play();
     } catch (error) {
-      if (musicLabel) musicLabel.textContent = "Musikdatei prüfen";
-      console.warn(`Der Titel "${track.title}" konnte nicht abgespielt werden. Prüfe den Pfad: ${track.src}`, error);
+      if (musicLabel) {
+        musicLabel.textContent = "Musikdatei prüfen";
+      }
+
+      console.warn(
+        `Der Titel "${track.title}" konnte nicht abgespielt werden. Pfad prüfen: ${track.src}`,
+        error
+      );
     }
   }
 
@@ -188,8 +217,14 @@ async function toggleMusic() {
     try {
       await backgroundMusic.play();
     } catch (error) {
-      if (musicLabel) musicLabel.textContent = "Musikdatei prüfen";
-      console.warn("Musik konnte nicht gestartet werden. Prüfe die MP3-Datei und den Pfad.", error);
+      if (musicLabel) {
+        musicLabel.textContent = "Musikdatei prüfen";
+      }
+
+      console.warn(
+        "Musik konnte nicht gestartet werden. Prüfe die MP3-Datei und den Pfad.",
+        error
+      );
     }
   } else {
     backgroundMusic.pause();
@@ -203,20 +238,26 @@ function togglePlaylist() {
 
   const willOpen = playlistPanel.hidden;
   playlistPanel.hidden = !willOpen;
-  playlistToggle.setAttribute("aria-expanded", String(willOpen));
 
-  if (willOpen) playlistClose?.focus();
+  playlistToggle.setAttribute(
+    "aria-expanded",
+    String(willOpen)
+  );
+
+  if (willOpen) {
+    playlistClose?.focus();
+  }
 }
+
+/* =========================================
+   GEHEIMER LIEBESBRIEF
+========================================= */
 
 const secretLetterModal = document.getElementById("secretLetterModal");
 const openSecretLetterButton = document.getElementById("openSecretLetter");
 const closeSecretLetterButton = document.getElementById("closeSecretLetter");
 
 let lastSecretLetterFocus = null;
-
-/* =========================================
-   GEHEIMEN LIEBESBRIEF ÖFFNEN
-========================================= */
 
 function openSecretLetter() {
   if (!secretLetterModal) return;
@@ -233,10 +274,6 @@ function openSecretLetter() {
     closeSecretLetterButton?.focus();
   }, 100);
 }
-
-/* =========================================
-   GEHEIMEN LIEBESBRIEF SCHLIESSEN
-========================================= */
 
 function closeSecretLetter() {
   if (!secretLetterModal) return;
@@ -256,7 +293,7 @@ function closeSecretLetter() {
 }
 
 /* =========================================
-   STERNE ERSTELLEN
+   STERNE FÜR DEN STARTBILDSCHIRM
 ========================================= */
 
 function createStars() {
@@ -274,29 +311,23 @@ function createStars() {
 
   for (let i = 0; i < count; i++) {
     const star = document.createElement("span");
-
     const size = (Math.random() * 2.2 + 0.7).toFixed(1);
 
     star.className =
-      Math.random() > 0.88
-        ? "star star-cross"
-        : "star";
+      Math.random() > 0.88 ? "star star-cross" : "star";
 
     star.style.left = `${Math.random() * 100}%`;
     star.style.top = `${Math.random() * 100}%`;
 
     star.style.setProperty("--size", `${size}px`);
-
     star.style.setProperty(
       "--duration",
       `${(1.7 + Math.random() * 3.8).toFixed(2)}s`
     );
-
     star.style.setProperty(
       "--delay",
       `${(-Math.random() * 5).toFixed(2)}s`
     );
-
     star.style.setProperty(
       "--drift",
       `${(3 + Math.random() * 6).toFixed(2)}s`
@@ -312,7 +343,6 @@ function createStars() {
 
 function openLoveStory() {
   if (!introScreen || !mainSite) return;
-
   if (introScreen.classList.contains("leaving")) return;
 
   introScreen.classList.add("leaving");
@@ -333,7 +363,7 @@ function openLoveStory() {
 }
 
 /* =========================================
-   BEZIEHUNGSZÄHLER AKTUALISIEREN
+   BEZIEHUNGSZÄHLER
 ========================================= */
 
 function updateCounter() {
@@ -376,27 +406,44 @@ function updateCounter() {
 }
 
 /* =========================================
-   COUNTDOWN BIS ZUM NÄCHSTEN JAHRESTAG
+   COUNTDOWN BIS ZUM JAHRESTAG
 ========================================= */
 
 function updateAnniversaryCountdown() {
   const now = new Date();
 
-  // Nächster Jahrestag: immer am 12. Mai um 21:52 Uhr.
-  let target = new Date(now.getFullYear(), 4, 12, 21, 52, 0);
+  let target = new Date(
+    now.getFullYear(),
+    4,
+    12,
+    21,
+    52,
+    0
+  );
 
-  // Ist der Jahrestag dieses Jahres bereits vorbei,
-  // wird der nächste im folgenden Jahr verwendet.
   if (now.getTime() >= target.getTime()) {
-    target = new Date(now.getFullYear() + 1, 4, 12, 21, 52, 0);
+    target = new Date(
+      now.getFullYear() + 1,
+      4,
+      12,
+      21,
+      52,
+      0
+    );
   }
 
   const difference = target.getTime() - now.getTime();
 
   const days = Math.floor(difference / 86400000);
-  const hours = Math.floor((difference % 86400000) / 3600000);
-  const minutes = Math.floor((difference % 3600000) / 60000);
-  const seconds = Math.floor((difference % 60000) / 1000);
+  const hours = Math.floor(
+    (difference % 86400000) / 3600000
+  );
+  const minutes = Math.floor(
+    (difference % 3600000) / 60000
+  );
+  const seconds = Math.floor(
+    (difference % 60000) / 1000
+  );
 
   const daysElement = document.getElementById("anniversaryDays");
   const hoursElement = document.getElementById("anniversaryHours");
@@ -431,12 +478,11 @@ function updateAnniversaryCountdown() {
 }
 
 /* =========================================
-   ERINNERUNGEN ANZEIGEN
+   TIMELINE
 ========================================= */
 
 function renderTimeline() {
   const list = document.getElementById("timelineList");
-
   if (!list) return;
 
   list.innerHTML = memories.map((memory, index) => `
@@ -470,87 +516,6 @@ function renderTimeline() {
 
   cards.forEach(card => observer.observe(card));
 }
-
-/* =========================================
-   MUSIK STEUERN
-========================================= */
-
-
-
-/* =========================================
-   ALLES INITIALISIEREN
-========================================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-  document.body.style.overflow = "hidden";
-
-  createStars();
-  renderTimeline();
-  renderMapMemories();
-  renderOurMap();
-  updateCounter();
-  updateAnniversaryCountdown();
-
-  window.setInterval(updateCounter, 1000);
-  window.setInterval(updateAnniversaryCountdown, 1000);
-
-  // Startbildschirm
-  enterButton?.addEventListener("click", openLoveStory);
-
-  // Musik, Playlist und Lautstärke
-  musicButton?.addEventListener("click", toggleMusic);
-  musicVolume?.addEventListener("input", updateMusicVolume);
-  playlistToggle?.addEventListener("click", togglePlaylist);
-  playlistClose?.addEventListener("click", togglePlaylist);
-  previousTrackButton?.addEventListener("click", () => selectTrack(currentTrackIndex - 1, true));
-  nextTrackButton?.addEventListener("click", () => selectTrack(currentTrackIndex + 1, true));
-  playlistPlayPauseButton?.addEventListener("click", toggleMusic);
-
-  backgroundMusic?.addEventListener("play", updatePlaylistPlaybackState);
-  backgroundMusic?.addEventListener("pause", updatePlaylistPlaybackState);
-  backgroundMusic?.addEventListener("ended", () => selectTrack(currentTrackIndex + 1, true));
-
-  document.addEventListener("keydown", event => {
-    if (event.key === "Escape" && playlistPanel && !playlistPanel.hidden) {
-      playlistPanel.hidden = true;
-      playlistToggle?.setAttribute("aria-expanded", "false");
-      playlistToggle?.focus();
-    }
-  });
-
-  renderPlaylist();
-  updateMusicVolume();
-  updatePlaylistPlaybackState();
-
-  // Nur das Brief-Emoji im Footer öffnet den geheimen Brief.
-  openSecretLetterButton?.addEventListener(
-    "click",
-    openSecretLetter
-  );
-
-  // Brief schließen
-  closeSecretLetterButton?.addEventListener(
-    "click",
-    closeSecretLetter
-  );
-
-  secretLetterModal
-    ?.querySelectorAll("[data-close-secret-letter]")
-    .forEach(button => {
-      button.addEventListener("click", closeSecretLetter);
-    });
-
-  // Escape-Taste schließt den Brief.
-  document.addEventListener("keydown", event => {
-    if (
-      event.key === "Escape" &&
-      secretLetterModal?.classList.contains("open")
-    ) {
-      closeSecretLetter();
-    }
-  });
-});
-
 
 /* =========================================
    ROMANTISCHE STERNENBOTSCHAFTEN
@@ -631,18 +596,9 @@ const shootingStarMessages = [
 ];
 
 const skyStarPositions = [
-  [12, 24],
-  [29, 53],
-  [19, 79],
-  [42, 22],
-  [53, 70],
-  [66, 38],
-  [79, 21],
-  [88, 57],
-  [72, 82],
-  [39, 86],
-  [57, 15],
-  [91, 83]
+  [12, 24], [29, 53], [19, 79], [42, 22],
+  [53, 70], [66, 38], [79, 21], [88, 57],
+  [72, 82], [39, 86], [57, 15], [91, 83]
 ];
 
 let shootingMessageIndex = 0;
@@ -650,13 +606,8 @@ let skyShootingTimer = null;
 let skyHeadingTapCount = 0;
 let skyHeadingTapTimer = null;
 
-/* =========================================
-   LIEBESBOTSCHAFT ANZEIGEN
-========================================= */
-
 function showRomanticSkyMessage(message) {
   const panel = document.getElementById("skyMemoryMessage");
-
   if (!panel) return;
 
   const icon = document.createElement("span");
@@ -692,7 +643,6 @@ function createRomanticSky() {
 
   if (!sky || !starField || !starsContainer) return;
 
-  // Kleine, funkelnde Hintergrundsterne
   if (!starField.childElementCount) {
     const count = Math.min(
       110,
@@ -735,7 +685,6 @@ function createRomanticSky() {
     }
   }
 
-  // Die zwölf anklickbaren Liebessterne
   if (!starsContainer.childElementCount) {
     romanticSkyMessages.forEach((message, index) => {
       const star = document.createElement("button");
@@ -761,7 +710,6 @@ function createRomanticSky() {
         if (!star.classList.contains("found")) {
           star.classList.add("found");
           star.setAttribute("aria-pressed", "true");
-
           star.setAttribute(
             "aria-label",
             `Entdeckt: ${message.title}`
@@ -791,7 +739,6 @@ function createRomanticSky() {
     });
   }
 
-  // Sternschnuppe mit wechselnden Nachrichten
   if (shootingStar && shootingStar.dataset.ready !== "true") {
     shootingStar.dataset.ready = "true";
 
@@ -818,7 +765,6 @@ function createRomanticSky() {
     }, 9000);
   }
 
-  // Geheimnis: dreimal auf die Überschrift tippen
   const heading = sky.querySelector("h2");
 
   if (heading && heading.dataset.secretReady !== "true") {
@@ -852,10 +798,6 @@ function createRomanticSky() {
   }
 }
 
-/* =========================================
-   STERNSCHNUPPE ANIMIEREN
-========================================= */
-
 function launchRomanticShootingStar(star) {
   if (!star || star.classList.contains("flyby")) return;
 
@@ -867,10 +809,6 @@ function launchRomanticShootingStar(star) {
     star.classList.remove("flyby");
   }, 1900);
 }
-
-/* =========================================
-   VERSTECKTES HERZ ENTHÜLLEN
-========================================= */
 
 function revealHiddenHeart() {
   const constellation = document.getElementById("heartConstellation");
@@ -889,17 +827,13 @@ function revealHiddenHeart() {
 }
 
 /* =========================================
-   STERNENHIMMEL INITIALISIEREN
+   UNSERE GEMEINSAME FANTASY-LANDKARTE
 ========================================= */
 
-document.addEventListener("DOMContentLoaded", createRomanticSky);
+// Nur ungefähre Ortsmittelpunkte – keine privaten Adressen.
+// Die Positionen auf der illustrierten Karte sind bewusst
+// künstlerisch gestaltet und keine maßstabsgetreue Geografie.
 
-
-/* =========================================
-   UNSERE GEMEINSAME LANDKARTE
-========================================= */
-
-// Ortsmittelpunkte als Orientierung – keine privaten Adressen.
 const sharedMapMemories = [
   {
     id: "mayen",
@@ -907,7 +841,10 @@ const sharedMapMemories = [
     country: "Deutschland",
     date: "04. Juli 2025",
     description: "Hier habt ihr euch zum ersten Mal persönlich getroffen. Der Ort, an dem aus eurer Online-Geschichte eine gemeinsame Erinnerung in echt wurde. ♡",
-    coordinates: [50.3279, 7.2228]
+    coordinates: [50.3279, 7.2228],
+    position: { x: 68, y: 35 },
+    symbol: "🏡",
+    chapter: "Das erste Wiedersehen"
   },
   {
     id: "koblenz",
@@ -915,7 +852,10 @@ const sharedMapMemories = [
     country: "Deutschland",
     date: "Juli 2025",
     description: "Ein besonderer Ausflug mit ihrer Familie – ein weiterer schöner Teil eurer ersten gemeinsamen Zeit.",
-    coordinates: [50.3569, 7.5890]
+    coordinates: [50.3569, 7.5890],
+    position: { x: 76, y: 25 },
+    symbol: "🏰",
+    chapter: "Ein Ausflug mit Familie"
   },
   {
     id: "pornic",
@@ -923,100 +863,423 @@ const sharedMapMemories = [
     country: "Frankreich",
     date: "08. – 25. Juli 2026",
     description: "Euer gemeinsamer Urlaub an der französischen Atlantikküste. Eine ganze Zeit voller gemeinsamer Erlebnisse und Erinnerungen. 🇫🇷",
-    coordinates: [47.1150, -2.1020]
+    coordinates: [47.1150, -2.1020],
+    position: { x: 27, y: 70 },
+    symbol: "🌊",
+    chapter: "Unser Sommer am Meer"
   }
 ];
 
-let sharedMapInstance = null;
+let activeMapMemoryId = "mayen";
 
 /* =========================================
-   KARTEN-ERINNERUNGEN ANZEIGEN
+   FANTASY-KARTE: ERINNERUNG AUSWÄHLEN
+========================================= */
+
+function selectMapMemory(memoryId, shouldScroll = false) {
+  const memory = sharedMapMemories.find(
+    item => item.id === memoryId
+  );
+
+  if (!memory) return;
+
+  activeMapMemoryId = memoryId;
+
+  const mapElement = document.getElementById("ourMap");
+  const cardsContainer = document.getElementById("mapMemories");
+
+  mapElement?.querySelectorAll("[data-map-pin]").forEach(pin => {
+    const active = pin.dataset.mapPin === memoryId;
+
+    pin.classList.toggle("active", active);
+    pin.setAttribute("aria-pressed", String(active));
+  });
+
+  cardsContainer?.querySelectorAll("[data-map-memory]").forEach(card => {
+    const active = card.dataset.mapMemory === memoryId;
+
+    card.classList.toggle("active", active);
+    card.setAttribute("aria-pressed", String(active));
+  });
+
+  const detailTitle = document.getElementById("mapDetailTitle");
+  const detailDate = document.getElementById("mapDetailDate");
+  const detailDescription = document.getElementById("mapDetailDescription");
+  const detailCountry = document.getElementById("mapDetailCountry");
+  const detailSymbol = document.getElementById("mapDetailSymbol");
+
+  if (detailTitle) detailTitle.textContent = memory.name;
+  if (detailDate) detailDate.textContent = memory.date;
+  if (detailDescription) detailDescription.textContent = memory.description;
+  if (detailCountry) detailCountry.textContent = memory.country;
+  if (detailSymbol) detailSymbol.textContent = memory.symbol;
+
+  const detail = document.getElementById("mapMemoryDetail");
+
+  detail?.classList.remove("memory-detail-pop");
+  if (detail) {
+    void detail.offsetWidth;
+    detail.classList.add("memory-detail-pop");
+  }
+
+  if (shouldScroll) {
+    mapElement?.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  }
+}
+
+/* =========================================
+   FANTASY-KARTE: ERINNERUNGSKARTEN
 ========================================= */
 
 function renderMapMemories() {
   const container = document.getElementById("mapMemories");
   if (!container) return;
 
-  container.innerHTML = sharedMapMemories.map(memory => `
-    <article class="map-memory-card">
-      <button type="button" data-map-memory="${memory.id}" aria-label="${memory.name} auf der Karte anzeigen">
-        <span class="map-memory-country">${memory.country} · ♡</span>
-        <h3>${memory.name}</h3>
-        <p class="map-memory-date">${memory.date}</p>
-        <p class="map-memory-description">${memory.description}</p>
-      </button>
-    </article>
-  `).join("");
+  container.replaceChildren();
 
-  container.querySelectorAll("[data-map-memory]").forEach(button => {
+  sharedMapMemories.forEach(memory => {
+    const card = document.createElement("article");
+    card.className = "map-memory-card";
+    card.dataset.mapMemory = memory.id;
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.dataset.mapMemory = memory.id;
+    button.setAttribute(
+      "aria-label",
+      `${memory.name}: Erinnerung auf der Karte auswählen`
+    );
+    button.setAttribute("aria-pressed", "false");
+
+    const country = document.createElement("span");
+    country.className = "map-memory-country";
+    country.textContent = `${memory.country} · ♡`;
+
+    const symbol = document.createElement("span");
+    symbol.className = "map-memory-symbol";
+    symbol.textContent = memory.symbol;
+    symbol.setAttribute("aria-hidden", "true");
+
+    const title = document.createElement("h3");
+    title.textContent = memory.name;
+
+    const date = document.createElement("p");
+    date.className = "map-memory-date";
+    date.textContent = memory.date;
+
+    const description = document.createElement("p");
+    description.className = "map-memory-description";
+    description.textContent = memory.description;
+
+    button.append(
+      country,
+      symbol,
+      title,
+      date,
+      description
+    );
+
     button.addEventListener("click", () => {
-      const memory = sharedMapMemories.find(item => item.id === button.dataset.mapMemory);
-      if (!memory || !sharedMapInstance) return;
-
-      sharedMapInstance.flyTo(memory.coordinates, 9, { duration: 1.1 });
-      const marker = sharedMapInstance._sharedMemoryMarkers?.[memory.id];
-      marker?.openPopup();
-
-      document.getElementById("ourMap")?.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-      });
+      selectMapMemory(memory.id, true);
     });
+
+    card.append(button);
+    container.append(card);
   });
 }
 
 /* =========================================
-   INTERAKTIVE KARTE INITIALISIEREN
+   FANTASY-KARTE: ILLUSTRATION ERSTELLEN
+========================================= */
+
+function createFantasyMapIllustration() {
+  return `
+    <div class="fantasy-map-art" aria-hidden="true">
+
+      <div class="fantasy-map-paper"></div>
+
+      <div class="fantasy-map-grain"></div>
+
+      <div class="fantasy-map-border"></div>
+
+      <div class="fantasy-map-compass">
+        <span class="compass-north">N</span>
+        <span class="compass-east">E</span>
+        <span class="compass-south">S</span>
+        <span class="compass-west">W</span>
+        <span class="compass-star">✥</span>
+      </div>
+
+      <div class="fantasy-map-title">
+        <span>✧</span>
+        <strong>Our Little World</strong>
+        <small>Eine Reise voller Erinnerungen</small>
+      </div>
+
+      <div class="map-mountain-range mountain-range-one">
+        <span>▲</span><span>▲</span><span>▲</span>
+        <span>▲</span><span>▲</span>
+      </div>
+
+      <div class="map-mountain-range mountain-range-two">
+        <span>▲</span><span>▲</span><span>▲</span>
+      </div>
+
+      <div class="map-forest forest-one">
+        <span>♠</span><span>♠</span><span>♠</span>
+        <span>♠</span><span>♠</span>
+      </div>
+
+      <div class="map-forest forest-two">
+        <span>♠</span><span>♠</span><span>♠</span>
+        <span>♠</span>
+      </div>
+
+      <div class="map-castle castle-one">♜</div>
+      <div class="map-village village-one">⌂</div>
+      <div class="map-village village-two">⌂</div>
+
+      <div class="map-river river-one"></div>
+      <div class="map-river river-two"></div>
+
+      <div class="map-sea-label">Mare Amoris</div>
+      <div class="map-region-label region-one">Land der ersten Begegnung</div>
+      <div class="map-region-label region-two">Die Küste unserer Erinnerungen</div>
+
+      <div class="map-decoration decoration-one">✧</div>
+      <div class="map-decoration decoration-two">✦</div>
+      <div class="map-decoration decoration-three">♡</div>
+      <div class="map-decoration decoration-four">✧</div>
+
+      <div class="map-route-line"></div>
+
+      <div class="map-route-label">Unser gemeinsamer Weg</div>
+
+    </div>
+  `;
+}
+
+/* =========================================
+   FANTASY-KARTE: MARKIERUNGEN ERSTELLEN
+========================================= */
+
+function renderFantasyMapPins(mapElement) {
+  const pinLayer = document.createElement("div");
+  pinLayer.className = "fantasy-map-pins";
+
+  sharedMapMemories.forEach(memory => {
+    const pin = document.createElement("button");
+
+    pin.type = "button";
+    pin.className = "fantasy-map-pin";
+    pin.dataset.mapPin = memory.id;
+
+    pin.style.left = `${memory.position.x}%`;
+    pin.style.top = `${memory.position.y}%`;
+
+    pin.setAttribute(
+      "aria-label",
+      `${memory.name}, ${memory.date}. Erinnerung öffnen.`
+    );
+
+    pin.setAttribute("aria-pressed", "false");
+
+    pin.innerHTML = `
+      <span class="map-pin-glow"></span>
+      <span class="map-pin-heart">♡</span>
+      <span class="map-pin-label">${memory.name}</span>
+    `;
+
+    pin.addEventListener("click", () => {
+      selectMapMemory(memory.id);
+    });
+
+    pinLayer.append(pin);
+  });
+
+  mapElement.append(pinLayer);
+}
+
+/* =========================================
+   FANTASY-KARTE: DETAILBEREICH
+========================================= */
+
+function createMapDetail() {
+  const detail = document.createElement("div");
+
+  detail.id = "mapMemoryDetail";
+  detail.className = "map-memory-detail";
+  detail.setAttribute("aria-live", "polite");
+
+  detail.innerHTML = `
+    <div class="map-detail-icon" id="mapDetailSymbol">🏡</div>
+
+    <div class="map-detail-content">
+      <span class="map-detail-country" id="mapDetailCountry">
+        Deutschland
+      </span>
+
+      <h3 id="mapDetailTitle">Mayen</h3>
+
+      <p class="map-detail-date" id="mapDetailDate">
+        04. Juli 2025
+      </p>
+
+      <p class="map-detail-description" id="mapDetailDescription"></p>
+    </div>
+
+    <span class="map-detail-heart" aria-hidden="true">♡</span>
+  `;
+
+  return detail;
+}
+
+/* =========================================
+   FANTASY-KARTE INITIALISIEREN
 ========================================= */
 
 function renderOurMap() {
   const mapElement = document.getElementById("ourMap");
   if (!mapElement) return;
 
-  if (!window.L) {
-    mapElement.innerHTML = '<p style="padding:24px;color:#f8eafa">Die Karte konnte gerade nicht geladen werden. Bitte prüfe deine Internetverbindung.</p>';
+  // Bereits erzeugte Karte nicht doppelt aufbauen.
+  if (mapElement.dataset.fantasyReady === "true") {
+    selectMapMemory(activeMapMemoryId);
     return;
   }
 
-  if (sharedMapInstance) {
-    sharedMapInstance.invalidateSize();
-    return;
-  }
+  mapElement.dataset.fantasyReady = "true";
+  mapElement.classList.add("fantasy-map");
 
-  sharedMapInstance = L.map(mapElement, {
-    scrollWheelZoom: false
-  }).setView([49.0, 3.0], 5);
+  mapElement.replaceChildren();
 
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 18,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-  }).addTo(sharedMapInstance);
+  const illustration = document.createElement("div");
+  illustration.innerHTML = createFantasyMapIllustration();
 
-  sharedMapInstance._sharedMemoryMarkers = {};
+  mapElement.append(
+    ...illustration.childNodes
+  );
 
-  sharedMapMemories.forEach(memory => {
-    const heartIcon = L.divIcon({
-      className: "",
-      html: '<div class="our-map-pin"><span>♡</span></div>',
-      iconSize: [38, 38],
-      iconAnchor: [19, 36],
-      popupAnchor: [0, -34]
-    });
+  renderFantasyMapPins(mapElement);
 
-    const popup = `
-      <div class="map-popup-title">${memory.name} ♡</div>
-      <div class="map-popup-date">${memory.date}</div>
-      <div class="map-popup-text">${memory.description}</div>
-    `;
+  const detail = createMapDetail();
+  mapElement.append(detail);
 
-    const marker = L.marker(memory.coordinates, { icon: heartIcon })
-      .addTo(sharedMapInstance)
-      .bindPopup(popup);
-
-    sharedMapInstance._sharedMemoryMarkers[memory.id] = marker;
-  });
-
-  const bounds = L.latLngBounds(sharedMapMemories.map(memory => memory.coordinates));
-  sharedMapInstance.fitBounds(bounds, { padding: [42, 42] });
+  selectMapMemory(activeMapMemoryId);
 }
 
+/* =========================================
+   ALLES INITIALISIEREN
+========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.style.overflow = "hidden";
+
+  createStars();
+  renderTimeline();
+
+  renderMapMemories();
+  renderOurMap();
+
+  updateCounter();
+  updateAnniversaryCountdown();
+
+  window.setInterval(updateCounter, 1000);
+  window.setInterval(updateAnniversaryCountdown, 1000);
+
+  // Startbildschirm
+  enterButton?.addEventListener("click", openLoveStory);
+
+  // Musik, Playlist und Lautstärke
+  musicButton?.addEventListener("click", toggleMusic);
+  musicVolume?.addEventListener("input", updateMusicVolume);
+  playlistToggle?.addEventListener("click", togglePlaylist);
+  playlistClose?.addEventListener("click", togglePlaylist);
+
+  previousTrackButton?.addEventListener(
+    "click",
+    () => selectTrack(currentTrackIndex - 1, true)
+  );
+
+  nextTrackButton?.addEventListener(
+    "click",
+    () => selectTrack(currentTrackIndex + 1, true)
+  );
+
+  playlistPlayPauseButton?.addEventListener(
+    "click",
+    toggleMusic
+  );
+
+  backgroundMusic?.addEventListener(
+    "play",
+    updatePlaylistPlaybackState
+  );
+
+  backgroundMusic?.addEventListener(
+    "pause",
+    updatePlaylistPlaybackState
+  );
+
+  backgroundMusic?.addEventListener(
+    "ended",
+    () => selectTrack(currentTrackIndex + 1, true)
+  );
+
+  document.addEventListener("keydown", event => {
+    if (
+      event.key === "Escape" &&
+      playlistPanel &&
+      !playlistPanel.hidden
+    ) {
+      playlistPanel.hidden = true;
+      playlistToggle?.setAttribute("aria-expanded", "false");
+      playlistToggle?.focus();
+    }
+  });
+
+  renderPlaylist();
+  updateMusicVolume();
+  updatePlaylistPlaybackState();
+
+  // Nur das Brief-Emoji im Footer öffnet den geheimen Brief.
+  openSecretLetterButton?.addEventListener(
+    "click",
+    openSecretLetter
+  );
+
+  closeSecretLetterButton?.addEventListener(
+    "click",
+    closeSecretLetter
+  );
+
+  secretLetterModal
+    ?.querySelectorAll("[data-close-secret-letter]")
+    .forEach(button => {
+      button.addEventListener(
+        "click",
+        closeSecretLetter
+      );
+    });
+
+  document.addEventListener("keydown", event => {
+    if (
+      event.key === "Escape" &&
+      secretLetterModal?.classList.contains("open")
+    ) {
+      closeSecretLetter();
+    }
+  });
+});
+
+/* =========================================
+   STERNENHIMMEL INITIALISIEREN
+========================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  createRomanticSky
+);
