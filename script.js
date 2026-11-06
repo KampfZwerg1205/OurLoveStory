@@ -991,150 +991,172 @@ function renderMapMemories() {
   });
 }
 
-/* =========================================
-   FANTASY-KARTE: ILLUSTRATION ERSTELLEN
+* =========================================
+   FANTASY-KARTE (Bild + interaktive Herzen)
+   Ersetzt in script.js alles von
+   "FANTASY-KARTE: ILLUSTRATION ERSTELLEN" bis einschließlich
+   function renderOurMap() { ... }  (direkt vor "ALLES INITIALISIEREN").
+   selectMapMemory() und renderMapMemories() bleiben unverändert.
 ========================================= */
-
-function createFantasyMapIllustration() {
-  return `
-    <div class="fantasy-map-art" aria-hidden="true">
-
-      <div class="fantasy-map-paper"></div>
-
-      <div class="fantasy-map-grain"></div>
-
-      <div class="fantasy-map-border"></div>
-
-      <div class="fantasy-map-compass">
-        <span class="compass-north">N</span>
-        <span class="compass-east">E</span>
-        <span class="compass-south">S</span>
-        <span class="compass-west">W</span>
-        <span class="compass-star">✥</span>
-      </div>
-
-      <div class="fantasy-map-title">
-        <span>✧</span>
-        <strong>Our Little World</strong>
-        <small>Eine Reise voller Erinnerungen</small>
-      </div>
-
-      <div class="map-mountain-range mountain-range-one">
-        <span>▲</span><span>▲</span><span>▲</span>
-        <span>▲</span><span>▲</span>
-      </div>
-
-      <div class="map-mountain-range mountain-range-two">
-        <span>▲</span><span>▲</span><span>▲</span>
-      </div>
-
-      <div class="map-forest forest-one">
-        <span>♠</span><span>♠</span><span>♠</span>
-        <span>♠</span><span>♠</span>
-      </div>
-
-      <div class="map-forest forest-two">
-        <span>♠</span><span>♠</span><span>♠</span>
-        <span>♠</span>
-      </div>
-
-      <div class="map-castle castle-one">♜</div>
-      <div class="map-village village-one">⌂</div>
-      <div class="map-village village-two">⌂</div>
-
-      <div class="map-river river-one"></div>
-      <div class="map-river river-two"></div>
-
-      <div class="map-sea-label">Mare Amoris</div>
-      <div class="map-region-label region-one">Land der ersten Begegnung</div>
-      <div class="map-region-label region-two">Die Küste unserer Erinnerungen</div>
-
-      <div class="map-decoration decoration-one">✧</div>
-      <div class="map-decoration decoration-two">✦</div>
-      <div class="map-decoration decoration-three">♡</div>
-      <div class="map-decoration decoration-four">✧</div>
-
-      <div class="map-route-line"></div>
-
-      <div class="map-route-label">Unser gemeinsamer Weg</div>
-
-    </div>
-  `;
+ 
+// Position der Herzen in Bildpixeln des Kartenbilds (1194 x 1189).
+// lx/ly = Versatz der Beschriftung. Hier kannst du Herzen verschieben.
+const MAP_IMAGE = { src: "assets/karte.jpg", width: 1194, height: 1189 };
+ 
+const MAP_SPOTS = {
+  mayen:   { x: 548, y: 605, lx: 0, ly: 62 },
+  koblenz: { x: 975, y: 430, lx: 0, ly: -40 },
+  pornic:  { x: 290, y: 775, lx: 0, ly: 62 }
+};
+ 
+const MAP_ROUTE =
+  "M290,775 C380,735 460,665 548,605 C680,595 800,525 900,475 C930,455 950,445 975,430";
+ 
+const MAP_AURAS = [[205, 460, 95], [880, 300, 90], [1090, 630, 90], [320, 900, 115]];
+const MAP_HEART_PATH =
+  "M0 22 C-30 -4 -22 -26 -8 -24 C-2 -23 0 -18 0 -16 C0 -18 2 -23 8 -24 C22 -26 30 -4 0 22 Z";
+const SVG_NS = "http://www.w3.org/2000/svg";
+ 
+function svgEl(name, attrs = {}, parent) {
+  const node = document.createElementNS(SVG_NS, name);
+  Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, value));
+  if (parent) parent.appendChild(node);
+  return node;
 }
-
-/* =========================================
-   FANTASY-KARTE: MARKIERUNGEN ERSTELLEN
-========================================= */
-
-function renderFantasyMapPins(mapElement) {
-  const pinLayer = document.createElement("div");
-  pinLayer.className = "fantasy-map-pins";
-
-  sharedMapMemories.forEach(memory => {
-    const pin = document.createElement("button");
-
-    pin.type = "button";
-    pin.className = "fantasy-map-pin";
-    pin.dataset.mapPin = memory.id;
-
-    pin.style.left = `${memory.position.x}%`;
-    pin.style.top = `${memory.position.y}%`;
-
-    pin.setAttribute(
-      "aria-label",
-      `${memory.name}, ${memory.date}. Erinnerung öffnen.`
-    );
-
-    pin.setAttribute("aria-pressed", "false");
-
-    pin.innerHTML = `
-      <span class="map-pin-glow"></span>
-      <span class="map-pin-heart">♡</span>
-      <span class="map-pin-label">${memory.name}</span>
-    `;
-
-    pin.addEventListener("click", () => {
-      selectMapMemory(memory.id);
-    });
-
-    pinLayer.append(pin);
+ 
+function createMapStage() {
+  const stage = document.createElement("div");
+  stage.className = "olsmap-stage";
+ 
+  const image = document.createElement("img");
+  image.src = MAP_IMAGE.src;
+  image.width = MAP_IMAGE.width;
+  image.height = MAP_IMAGE.height;
+  image.alt = "Magische Fantasy-Landkarte mit leuchtenden Gebirgen, Wäldern und Kompassrosen";
+  image.decoding = "async";
+  stage.append(image);
+ 
+  const svg = svgEl("svg", {
+    viewBox: `0 0 ${MAP_IMAGE.width} ${MAP_IMAGE.height}`,
+    preserveAspectRatio: "xMidYMid meet",
+    focusable: "false"
   });
-
-  mapElement.append(pinLayer);
+ 
+  const defs = svgEl("defs", {}, svg);
+  const glow = svgEl("filter", { id: "olsGlow", x: "-60%", y: "-60%", width: "220%", height: "220%" }, defs);
+  svgEl("feGaussianBlur", { stdDeviation: 6, result: "b" }, glow);
+  const merge = svgEl("feMerge", {}, glow);
+  svgEl("feMergeNode", { in: "b" }, merge);
+  svgEl("feMergeNode", { in: "SourceGraphic" }, merge);
+  const grad = svgEl("linearGradient", { id: "olsHeart", x1: 0, y1: 0, x2: 1, y2: 1 }, defs);
+  svgEl("stop", { offset: 0, "stop-color": "#ff8fe6" }, grad);
+  svgEl("stop", { offset: 1, "stop-color": "#9b4dff" }, grad);
+ 
+  // Pulsierende Magie über den Kompassrosen
+  const auras = svgEl("g", { "aria-hidden": "true" }, svg);
+  MAP_AURAS.forEach(([cx, cy, r], i) => {
+    svgEl("circle", { class: "olsmap-aura", cx, cy, r, style: `animation-delay:${i * 0.9}s` }, auras);
+  });
+ 
+  // Magische, gepunktete Reiseroute
+  svgEl("path", {
+    class: "olsmap-route", d: MAP_ROUTE, fill: "none", stroke: "#ffb3ee",
+    "stroke-width": 5, "stroke-linecap": "round", "stroke-dasharray": "3 14",
+    filter: "url(#olsGlow)", "aria-hidden": "true"
+  }, svg);
+ 
+  // Herz-Marker
+  const pins = svgEl("g", {}, svg);
+  sharedMapMemories.forEach(memory => {
+    const spot = MAP_SPOTS[memory.id];
+    if (!spot) return;
+ 
+    const pin = svgEl("g", {
+      class: "olsmap-pin",
+      transform: `translate(${spot.x},${spot.y})`,
+      tabindex: 0,
+      role: "button",
+      "data-map-pin": memory.id,
+      "aria-pressed": "false",
+      "aria-label": `${memory.name}, ${memory.date}. Erinnerung öffnen.`
+    }, pins);
+ 
+    // Innere Gruppe: wird auf Smartphones per CSS vergrößert (Touch-Fläche)
+    const body = svgEl("g", { class: "olsmap-pin-body" }, pin);
+    svgEl("circle", { class: "olsmap-pin-hit", r: 46, fill: "transparent" }, body);
+    svgEl("circle", { class: "olsmap-pin-ring", r: 28 }, body);
+    svgEl("path", {
+      class: "olsmap-pin-heart", d: MAP_HEART_PATH, fill: "url(#olsHeart)",
+      stroke: "#fff3fd", "stroke-width": 2, filter: "url(#olsGlow)"
+    }, body);
+    svgEl("text", { class: "olsmap-pin-label", x: spot.lx, y: spot.ly, "text-anchor": "middle" }, body)
+      .textContent = memory.name;
+ 
+    pin.addEventListener("click", () => selectMapMemory(memory.id));
+    pin.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        selectMapMemory(memory.id);
+      }
+    });
+  });
+ 
+  // Funkelnde Sterne (fester Startwert, damit die Karte immer gleich aussieht)
+  const sparks = svgEl("g", { "aria-hidden": "true" }, svg);
+  let seed = 12052025;
+  const random = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+  for (let i = 0; i < 30; i++) {
+    svgEl("circle", {
+      class: "olsmap-spark",
+      cx: (100 + random() * 1000).toFixed(0), cy: (100 + random() * 1000).toFixed(0),
+      r: (1.5 + random() * 2.5).toFixed(1),
+      style: `animation-delay:${(random() * 3).toFixed(2)}s;animation-duration:${(2 + random() * 2.5).toFixed(2)}s`
+    }, sparks);
+  }
+ 
+  stage.append(svg);
+  return stage;
 }
-
-/* =========================================
-   FANTASY-KARTE: DETAILBEREICH
-========================================= */
-
+ 
+/* Detailbereich: Ortsname, Datum, Land, Beschreibung, Symbol.
+   Die IDs werden von selectMapMemory() befüllt. */
 function createMapDetail() {
   const detail = document.createElement("div");
-
   detail.id = "mapMemoryDetail";
-  detail.className = "map-memory-detail";
+  detail.className = "olsmap-detail";
   detail.setAttribute("aria-live", "polite");
-
+ 
   detail.innerHTML = `
-    <div class="map-detail-icon" id="mapDetailSymbol">🏡</div>
-
-    <div class="map-detail-content">
-      <span class="map-detail-country" id="mapDetailCountry">
-        Deutschland
-      </span>
-
-      <h3 id="mapDetailTitle">Mayen</h3>
-
-      <p class="map-detail-date" id="mapDetailDate">
-        04. Juli 2025
-      </p>
-
-      <p class="map-detail-description" id="mapDetailDescription"></p>
+    <div class="olsmap-detail-icon" id="mapDetailSymbol" aria-hidden="true">♡</div>
+    <div class="olsmap-detail-content">
+      <span class="olsmap-detail-country" id="mapDetailCountry"></span>
+      <h3 id="mapDetailTitle"></h3>
+      <p class="olsmap-detail-date" id="mapDetailDate"></p>
+      <p class="olsmap-detail-description" id="mapDetailDescription"></p>
     </div>
-
-    <span class="map-detail-heart" aria-hidden="true">♡</span>
   `;
-
+ 
   return detail;
+}
+ 
+function renderOurMap() {
+  const mapElement = document.getElementById("ourMap");
+  if (!mapElement) return;
+ 
+  if (mapElement.dataset.fantasyReady === "true") {
+    selectMapMemory(activeMapMemoryId);
+    return;
+  }
+ 
+  mapElement.dataset.fantasyReady = "true";
+ 
+  // Alte Kartenklassen entfernen, damit altes CSS nicht mehr eingreift.
+  mapElement.classList.remove("our-map", "fantasy-map");
+  mapElement.classList.add("olsmap-host");
+ 
+  mapElement.replaceChildren(createMapStage(), createMapDetail());
+ 
+  selectMapMemory(activeMapMemoryId);
 }
 
 /* =========================================
