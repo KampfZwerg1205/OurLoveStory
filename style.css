@@ -1873,3 +1873,238 @@ body.secret-letter-open {
     transform: none;
   }
 }
+
+
+/* =========================================
+   UNSERE GEMEINSAME LANDKARTE
+========================================= */
+
+.our-map-section {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(126, 83, 155, .13), transparent 55%),
+    linear-gradient(180deg, #170f2d, #1a1038);
+}
+
+.our-map-section h2 {
+  margin: 0;
+  color: #f5dff4;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.1rem, 5vw, 3rem);
+  font-weight: 400;
+  line-height: 1.16;
+}
+
+.our-map-section h2 span {
+  color: #f2b7df;
+  font-style: italic;
+}
+
+.our-map-card {
+  max-width: 1000px;
+  margin: 36px auto 0;
+  padding: 18px;
+  border: 1px solid rgba(226, 174, 224, .2);
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(43, 28, 65, .96), rgba(27, 18, 48, .98));
+  box-shadow: 0 22px 55px rgba(0, 0, 0, .24);
+  text-align: left;
+}
+
+.our-map-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 4px 4px 18px;
+}
+
+.map-heading-icon {
+  display: grid;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(242, 183, 223, .3);
+  border-radius: 50%;
+  color: #f5bde4;
+  background: rgba(217, 124, 197, .12);
+  font-size: 1.45rem;
+}
+
+.our-map-heading h3 {
+  margin: 0 0 5px;
+  color: #fff0ff;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+.our-map-heading p,
+.map-note {
+  margin: 0;
+  color: #c0accb;
+  font-size: .88rem;
+  line-height: 1.6;
+}
+
+.our-map {
+  z-index: 0;
+  width: 100%;
+  height: clamp(320px, 52vw, 520px);
+  overflow: hidden;
+  border: 1px solid rgba(242, 183, 223, .2);
+  border-radius: 17px;
+  background: #211934;
+}
+
+.our-map .leaflet-tile {
+  filter: brightness(.72) saturate(.72) hue-rotate(218deg);
+}
+
+.our-map .leaflet-control-zoom a {
+  color: #f8eafa;
+  border-color: #594267;
+  background: #241735;
+}
+
+.our-map .leaflet-control-attribution {
+  color: #493d54;
+  background: rgba(248, 234, 250, .82);
+  font-size: 10px;
+}
+
+.our-map .leaflet-control-attribution a {
+  color: #49305f;
+}
+
+.our-map .leaflet-popup-content-wrapper,
+.our-map .leaflet-popup-tip {
+  color: #f8eafa;
+  background: #241735;
+}
+
+.our-map .leaflet-popup-content {
+  margin: 13px 16px;
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.55;
+}
+
+.map-popup-title {
+  margin-bottom: 4px;
+  color: #f5bde4;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.08rem;
+}
+
+.map-popup-date {
+  margin-bottom: 6px;
+  color: #c8b9ff;
+  font-size: .78rem;
+}
+
+.map-popup-text {
+  color: #eaddec;
+  font-size: .86rem;
+}
+
+.our-map-pin {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid rgba(255, 230, 255, .9);
+  border-radius: 50% 50% 50% 8px;
+  color: white;
+  background: linear-gradient(145deg, #e58bc9, #8e6ad1);
+  box-shadow: 0 4px 18px rgba(217, 124, 197, .5);
+  font-size: 19px;
+  transform: rotate(-45deg);
+}
+
+.our-map-pin span {
+  transform: rotate(45deg);
+}
+
+.map-memories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 14px;
+  max-width: 1000px;
+  margin: 20px auto 0;
+  text-align: left;
+}
+
+.map-memory-card {
+  padding: 19px;
+  border: 1px solid rgba(226, 174, 224, .17);
+  border-radius: 18px;
+  background: rgba(43, 28, 65, .72);
+  transition: transform .25s ease, border-color .25s ease, background .25s ease;
+}
+
+.map-memory-card:hover,
+.map-memory-card:focus-visible {
+  border-color: rgba(242, 183, 223, .55);
+  background: rgba(55, 35, 76, .9);
+  transform: translateY(-3px);
+}
+
+.map-memory-card button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.map-memory-country {
+  color: #c8b9ff;
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.map-memory-card h3 {
+  margin: 7px 0 5px;
+  color: #f5bde4;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 400;
+}
+
+.map-memory-date {
+  margin: 0 0 9px;
+  color: #d3b6d7;
+  font-size: .8rem;
+}
+
+.map-memory-description {
+  margin: 0;
+  color: #e1d3e8;
+  font-size: .88rem;
+  line-height: 1.65;
+}
+
+.map-note {
+  margin-top: 22px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .our-map-card {
+    padding: 11px;
+    border-radius: 19px;
+  }
+
+  .our-map {
+    height: 360px;
+    border-radius: 13px;
+  }
+
+  .our-map-heading {
+    align-items: flex-start;
+  }
+}
